@@ -4,21 +4,27 @@
 
 board = new Board();
 
-monster = new Monster(32, 32, './images/monster.png', random(550), random(350));
-monster2 = new Monster(32, 32, './images/monster.png', random(550), random(350));
-monster3 = new Monster(32, 32, './images/monster.png', random(550), random(350));
-monster4 = new Monster(32, 32, './images/monster.png', random(550), random(350));
+monster = new Monster(32, 32, './images/monster.png', random(480), random(350));
+monster2 = new Monster(32, 32, './images/monster.png', random(480), random(350));
+monster3 = new Monster(32, 32, './images/monster.png', random(480), random(350));
+monster4 = new Monster(32, 32, './images/monster.png', random(480), random(350));
 
 village = new Village(4000);
 obstacle = new Obstacle();
 
 $(document).ready(function() {
   board.start();
-  guardian = new Player(50, 50, './images/guardian.png', board.canvas.width/2 + 50, board.canvas.height/2 + 50);
-  guardian2 = new Player(50, 50, './images/guardian.png', board.canvas.width/2 - 50, board.canvas.height/2 + 50);
 
-  var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-  window.requestAnimationFrame = requestAnimationFrame;
+  $('.start').click(function(){
+    $('#menu').toggleClass('active hidden');
+    $('#game').toggleClass('hidden active');
+    $('#sidebar').toggleClass('hidden active');
+  });
+
+  guardian = new Player(45, 40, './images/guardian.png', board.canvas.width/2 + 50, board.canvas.height/2 + 50);
+  guardian2 = new Player(45, 40, './images/guardian.png', board.canvas.width/2 - 50, board.canvas.height/2 + 50);
+
+  guardian.draw();
 });
 
 function update() {
@@ -38,23 +44,12 @@ function update() {
 
     // Board
     board.clear();
+    //requestAnimationFrame(update);
 }
 
 function random(max) {
   return Math.floor(Math.random() * (max));
 }
-
-// Keyboard controls
-var keysDown = {};
-addEventListener('keydown', function (e) {
-  guardian.moving = true;
-	keysDown[e.keyCode] = true;
-}, false);
-
-addEventListener('keyup', function (e) {
-  guardian.moving = false;
-	delete keysDown[e.keyCode];
-}, false);
 
 document.onkeydown = function(e) {
   switch (e.keyCode) {

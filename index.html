@@ -16,9 +16,21 @@
     <script src="game.js"></script>
   </head>
   <body>
-    <div id="menu" class="hidden"></div>
-    <div id="select" class="hidden"></div>
-    <div id="game" class="active"></div>
-    <div id="credits" class="hidden"></div>
+    <div class="village-guardians flex">
+      <!-- Menu -->
+      <div id="menu" class="active">
+          <a class="start"><h1>Start</h1></a>
+      </div>
+
+      <!-- <div id="select" class="hidden"></div> -->
+      <div id="game" class="flex hidden">
+          <div id="sidebar" class="hidden">
+              <div class="stop">STOP</div>
+          </div>
+      </div>
+
+      <!-- Credits -->
+      <div id="credits" class="hidden"></div>
+  </div>
   </body>
 </html>

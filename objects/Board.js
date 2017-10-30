@@ -10,7 +10,8 @@ Board.prototype.start = function (){
   document.getElementById('game').appendChild(this.canvas);
 
   // This may have to be in our game.js rather than canvas
-  this.interval = setInterval(update, 20);
+  this.interval = setInterval(update, 1000 / 50);
+  //requestAnimationFrame(update);
 }
 
 Board.prototype.clear = function () {
