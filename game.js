@@ -16,6 +16,9 @@ $(document).ready(function() {
   board.start();
   guardian = new Player(50, 50, './images/guardian.png', board.canvas.width/2 + 50, board.canvas.height/2 + 50);
   guardian2 = new Player(50, 50, './images/guardian.png', board.canvas.width/2 - 50, board.canvas.height/2 + 50);
+
+  var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+  window.requestAnimationFrame = requestAnimationFrame;
 });
 
 function update() {
@@ -40,6 +43,18 @@ function update() {
 function random(max) {
   return Math.floor(Math.random() * (max));
 }
+
+// Keyboard controls
+var keysDown = {};
+addEventListener('keydown', function (e) {
+  guardian.moving = true;
+	keysDown[e.keyCode] = true;
+}, false);
+
+addEventListener('keyup', function (e) {
+  guardian.moving = false;
+	delete keysDown[e.keyCode];
+}, false);
 
 document.onkeydown = function(e) {
   switch (e.keyCode) {

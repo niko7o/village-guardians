@@ -3,5 +3,8 @@ https://t00.deviantart.net/zJzgnyiDmIcqaGlZNR-D4kPwURM=/300x200/filters:fixed_he
 Monsters
 https://tmole.gamepedia.com/media/tmole.gamepedia.com/b/bb/Item_Rose_Monster.png?version=5ea1f602e94064a04f4f33d002fa3bb8
 
-"Moving around with friction" <-- MULTIPLE KEY PRESSES
+"Moving around with friction"
 http://jsfiddle.net/loktar/QUzD9/
+
+"AMAZINGLY SMOOTH CHARACTER MOVEMENT" <- gracias a Victor
+https://codepen.io/JTParrett/pen/vgwHA?editors=0010

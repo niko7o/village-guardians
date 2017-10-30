@@ -6,6 +6,7 @@ function Player(width, height, imgsrc, x, y) {
     this.speedX = 0;
     this.speedY = 0;
     this.score = 0;
+    this.moving = false; //for keydown and multiple press events
 
     this.draw = function(){
        ctx = board.context;
