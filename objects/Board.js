@@ -7,12 +7,12 @@ Board.prototype.start = function (){
   this.canvas.width = 640
   this.canvas.height = 480;
   this.context = this.canvas.getContext("2d");
-  document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+  document.getElementById('game').appendChild(this.canvas);
   this.interval = setInterval(update, 20);
 }
 
 Board.prototype.draw = function (){
-  
+
 }
 
 Board.prototype.clear = function () {

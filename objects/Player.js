@@ -18,27 +18,33 @@ function Player(width, height, imgsrc, x, y) {
 }
 
 Player.prototype.moveUp = function(){
-  player.y -= 5;
+  // add an up moving guardian sprite
+  this.y -= 5;
 }
 
 Player.prototype.moveDown = function(){
-  player.y += 5;
+  // add a down moving guardian sprite
+  this.y += 5;
 }
 
 Player.prototype.moveLeft = function(){
-  player.x -= 5;
+  // add a left moving guardian sprite
+  this.x -= 5;
 }
 
 Player.prototype.moveRight = function(){
-  player.x += 5;
+  // add a right moving guardian sprite
+  this.x += 5;
 }
 
 Player.prototype.stopped = function(){
-  player.speedX = 0;
-  player.speedY = 0;
+  // add a stopped guardian sprite
+  this.speedX = 0;
+  this.speedY = 0;
 }
 
 Player.prototype.running = function(){
+  // add a running guardian sprite
   this.x += this.speedX;
   this.y += this.speedY;
 }
