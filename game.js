@@ -1,13 +1,38 @@
-// Game controller
+// ----------------------------- IMAGE LOADER -----------------------------
+var imagesOK = 0;
+var imgs = [];
+
+var imageURLs = [];
+imageURLs.push("https://i.imgur.com/R13yolQ.png");
+imageURLs.push("https://i.imgur.com/D6rITFC.png");
+
+loadAllImages();
+
+function loadAllImages(){
+    for (var i = 0; i < imageURLs.length; i++) {
+        var img = new Image();
+        imgs.push(img);
+        img.onload = function(){
+            imagesOK++;
+            if (imagesOK >= imageURLs.length) {
+                console.log('images are ready!');
+            }
+        };
+        img.onerror = function(){ alert("image load failed"); }
+        img.crossOrigin = "anonymous";
+        img.src = imageURLs[i];
+    }
+}
+// END OF IMAGE LOADER
 
 board = new Board();
 village = new Village(4000);
-obstacle = new Obstacle();
+grid = new Grid(32, 15, 15);
 monster = new Monster(32, 32, './images/monster.png', random(480), random(350));
 
+// Monster creation
 var monsterArmy = [];
-
-for(var i = 0; i < 3; i++){
+for(var i = 0; i < 4; i++){
   monsterArmy.push(monster);
 }
 
