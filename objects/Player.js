@@ -19,22 +19,22 @@ function Player(width, height, imgsrc, x, y) {
 
 Player.prototype.moveUp = function(){
   // add an up moving guardian sprite
-  this.y -= 5;
+  this.speedY = -1.8;
 }
 
 Player.prototype.moveDown = function(){
   // add a down moving guardian sprite
-  this.y += 5;
+  this.speedY = 1.8;
 }
 
 Player.prototype.moveLeft = function(){
   // add a left moving guardian sprite
-  this.x -= 5;
+  this.speedX = -1.8;
 }
 
 Player.prototype.moveRight = function(){
   // add a right moving guardian sprite
-  this.x += 5;
+  this.speedX = 1.8;
 }
 
 Player.prototype.stopped = function(){

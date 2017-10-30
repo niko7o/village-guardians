@@ -1,13 +1,17 @@
-function Monster(width, height, color, x, y) {
+function Monster(width, height, imgsrc, x, y) {
     this.width = width;
     this.height = height;
     this.x = x;
     this.y = y;
+    this.life = 3;
 
     this.draw = function(){
-       ctx = board.context;
-       ctx.fillStyle = color;
-       ctx.fillRect(this.randomX, this.randomY, this.width, this.height);
+      ctx = board.context;
+      this.image = new Image();
+      this.image.onload = function() {
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+      }.bind(this);
+      this.image.src = imgsrc;
    }
 }
 
