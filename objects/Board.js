@@ -1,6 +1,7 @@
-function Board () {
+function Board (width, height) {
     this.canvas = document.createElement("canvas");
-    this.frames = 0;
+    this.width = width;
+    this.height = height;
 }
 
 Board.prototype.start = function (){
@@ -11,7 +12,7 @@ Board.prototype.start = function (){
 
   // This may have to be in our game.js rather than canvas
   this.interval = setInterval(update, 1000 / 50);
-  //requestAnimationFrame(update);
+  // requestAnimationFrame(update);
 }
 
 Board.prototype.clear = function () {

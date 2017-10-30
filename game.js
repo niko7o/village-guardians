@@ -3,14 +3,14 @@
 // ***************************
 
 board = new Board();
-
-monster = new Monster(32, 32, './images/monster.png', random(480), random(350));
-monster2 = new Monster(32, 32, './images/monster.png', random(480), random(350));
-monster3 = new Monster(32, 32, './images/monster.png', random(480), random(350));
-monster4 = new Monster(32, 32, './images/monster.png', random(480), random(350));
-
 village = new Village(4000);
 obstacle = new Obstacle();
+
+var monsterArmy = [];
+
+for(var i = 0; i < 7; i++){
+  monsterArmy.push(monster = new Monster(32, 32, './images/monster.png', random(480), random(350)));
+}
 
 $(document).ready(function() {
   board.start();
@@ -21,18 +21,16 @@ $(document).ready(function() {
     $('#sidebar').toggleClass('hidden active');
   });
 
-  guardian = new Player(45, 40, './images/guardian.png', board.canvas.width/2 + 50, board.canvas.height/2 + 50);
-  guardian2 = new Player(45, 40, './images/guardian.png', board.canvas.width/2 - 50, board.canvas.height/2 + 50);
+  guardian = new Player(45, 40, './images/guardian.png', board.canvas.width/2, board.canvas.height/2 - 45);
+  guardian2 = new Player(45, 40, './images/guardian.png', board.canvas.width/2 - 45, board.canvas.height/2 - 45);
 
   guardian.draw();
+  guardian2.draw()
 });
 
 function update() {
     // Monsters (to be array)
     monster.draw();
-    monster2.draw();
-    monster3.draw();
-    monster4.draw();
 
     // Player 1
     guardian.draw();

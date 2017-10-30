@@ -19,11 +19,6 @@ Monster.prototype.appear = function(){
   // give random x and y coordinates
 }
 
-Monster.prototype.moving = function(){
-  this.x += this.speedX;
-  this.y += this.speedY;
-}
-
 Monster.prototype.infect = function(){
   console.log('infecting village');
 }

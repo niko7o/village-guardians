@@ -9,8 +9,8 @@ function Player(width, height, imgsrc, x, y) {
     this.moving = false; //for keydown and multiple press events
 
     this.draw = function(){
-       ctx = board.context;
        this.image = new Image();
+       ctx = board.context;
        this.image.onload = function() {
          ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
        }.bind(this);
@@ -20,22 +20,22 @@ function Player(width, height, imgsrc, x, y) {
 
 Player.prototype.moveUp = function(){
   // add an up moving guardian sprite
-  this.speedY = -1.8;
+  this.speedY = -2;
 }
 
 Player.prototype.moveDown = function(){
   // add a down moving guardian sprite
-  this.speedY = 1.8;
+  this.speedY = 2;
 }
 
 Player.prototype.moveLeft = function(){
   // add a left moving guardian sprite
-  this.speedX = -1.8;
+  this.speedX = -2;
 }
 
 Player.prototype.moveRight = function(){
   // add a right moving guardian sprite
-  this.speedX = 1.8;
+  this.speedX = 2;
 }
 
 Player.prototype.stopped = function(){
