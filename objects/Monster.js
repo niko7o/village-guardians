@@ -3,24 +3,33 @@ function Monster(width, height, color, x, y) {
     this.height = height;
     this.x = x;
     this.y = y;
-    this.speedX = 0;
-    this.speedY = 0;
-    this.update = function(){
+
+    this.draw = function(){
        ctx = board.context;
        ctx.fillStyle = color;
-       ctx.fillRect(this.x, this.y, this.width, this.height);
+       ctx.fillRect(this.randomX, this.randomY, this.width, this.height);
    }
 }
 
-Monster.prototype.newPos = function(){
+Monster.prototype.appear = function(){
+  // give random x and y coordinates
+}
+
+Monster.prototype.moving = function(){
   this.x += this.speedX;
   this.y += this.speedY;
 }
 
 Monster.prototype.infect = function(){
-  console.log(infect);
+  console.log('infecting village');
 }
 
 Monster.prototype.move = function(){
-  this.x += 5;
+  // Moving randomly
+  setTimeout(function(){
+    this.x += 5;
+  }, 2000)
+  setTimeout(function(){
+    this.y -= 5;
+  }, 2000)
 }

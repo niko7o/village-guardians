@@ -1,21 +1,32 @@
 $(document).ready(function() {
   board = new Board();
   board.start();
-  player = new Player(50, 50, 'https://www.smwcentral.net/images/ranks/pokemon/natu.png', board.canvas.width/2 - 50, board.canvas.height/2 - 50);
-  monster = new Monster(30, 30, 'blue', 0, 100);
+
+  player = new Player(50, 50, './images/guardian.png', board.canvas.width/2 - 50, board.canvas.height/2 - 50);
+
+  monster = new Monster(30, 30, './images/guardian.png', 100, 100);
+  var monsters = [monster];
+
   village = new Village(4000);
   obstacle = new Obstacle();
 
+  // We should draw our player once the document is ready
+  player.draw();
 });
 
 function update() {
-    board.clear();
+    // Player
+    player.draw();
+
+    // Monsters
+    monster.appear();
+
+    // Village
+    // village.loseHealth();
+
+    // Board
     board.frames += 1;
-
-    player.newPos();
-    player.update();
-
-    //console.log(village.health -= 1);
+    board.clear();
 }
 
 document.onkeydown = function(e) {
@@ -36,5 +47,5 @@ document.onkeydown = function(e) {
 }
 
 document.onkeyup = function(e) {
-  player.stopMove();
+  player.stopped();
 }

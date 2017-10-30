@@ -1,3 +1,11 @@
 canvas {
+  display: block;
+  width: 640px;
+  height: 480px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
   background-image: url('../images/village1.png');
 }
