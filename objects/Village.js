@@ -3,6 +3,7 @@ function Village(health) {
 }
 
 Village.prototype.loseHealth = function(){
-  this.health -= 1 * monsterArmy.length;
-  console.log(this.health);
+  while(this.health >= 0){
+    return this.health -= 1 * monsterArmy.length;
+  }
 }

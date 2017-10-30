@@ -53,6 +53,18 @@ canvas {
   margin-top: -5px;
 }
 
+#sidebar span {
+  display: inline-block;
+  padding: 40px 7px;
+  color: white;
+}
+
+#sidebar img {
+  margin: 40px 0px 0px 31px;
+  width: 20px;
+  height: 20px;
+}
+
 .stop {
   color: white;
   width: 80%;

@@ -1,15 +1,14 @@
-// ***************************
-//     VILLAGE GUARDIANS
-// ***************************
+// Game controller
 
 board = new Board();
 village = new Village(4000);
 obstacle = new Obstacle();
+monster = new Monster(32, 32, './images/monster.png', random(480), random(350));
 
 var monsterArmy = [];
 
-for(var i = 0; i < 7; i++){
-  monsterArmy.push(monster = new Monster(32, 32, './images/monster.png', random(480), random(350)));
+for(var i = 0; i < 3; i++){
+  monsterArmy.push(monster);
 }
 
 $(document).ready(function() {
@@ -23,9 +22,6 @@ $(document).ready(function() {
 
   guardian = new Player(45, 40, './images/guardian.png', board.canvas.width/2, board.canvas.height/2 - 45);
   guardian2 = new Player(45, 40, './images/guardian.png', board.canvas.width/2 - 45, board.canvas.height/2 - 45);
-
-  guardian.draw();
-  guardian2.draw()
 });
 
 function update() {
@@ -43,10 +39,17 @@ function update() {
     // Board
     board.clear();
     //requestAnimationFrame(update);
+
+    // Village DOM
+    document.getElementById('village-health').innerHTML = village.loseHealth();
 }
 
 function random(max) {
   return Math.floor(Math.random() * (max));
+}
+
+function populateMonsterArmy(number){
+
 }
 
 document.onkeydown = function(e) {
