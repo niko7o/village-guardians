@@ -9,10 +9,6 @@ Board.prototype.start = function (){
   this.canvas.height = 480;
   this.context = this.canvas.getContext("2d");
   document.getElementById('game').appendChild(this.canvas);
-
-  // This may have to be in our game.js rather than canvas
-  // this.interval = setInterval(update, 1000 / 50);
-  // requestAnimationFrame(update);
 }
 
 Board.prototype.clear = function () {

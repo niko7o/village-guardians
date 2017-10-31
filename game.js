@@ -1,54 +1,39 @@
-// // ----------------------------- IMAGE LOADER -----------------------------
-// var imagesOK = 0;
-// var imgs = [];
-//
-// var imageURLs = [];
-// imageURLs.push("https://i.imgur.com/R13yolQ.png");
-// imageURLs.push("https://i.imgur.com/D6rITFC.png");
-//
-// loadAllImages();
-//
-// function loadAllImages(){
-//     for (var i = 0; i < imageURLs.length; i++) {
-//         var img = new Image();
-//         imgs.push(img);
-//         img.onload = function(){
-//             imagesOK++;
-//             if (imagesOK >= imageURLs.length) {
-//                 console.log('images are ready!');
-//             }
-//         };
-//         img.onerror = function(){ alert("image load failed"); }
-//         img.crossOrigin = "anonymous";
-//         img.src = imageURLs[i];
-//     }
-// }
-// // END OF IMAGE LOADER
+// Preloader imágenes
+var images = [];
+var _player1img = './images/guardian.png';
+var _player2img = './images/guardian.png';
+var _monsterimg = './images/monster.png';
+images.push(_player1img);
+images.push(_player2img);
+images.push(_monsterimg);
 
+// Init our objects
 board = new Board();
-village = new Village(4000);
 grid = new Grid(32, 15, 15);
-monster = new Monster(32, 32, './images/monster.png', random(480), random(350));
+guardian = new Player(45, 40, images[0], board.canvas.width/2, board.canvas.height/2 - 45);
+guardian2 = new Player(45, 40, images[1], board.canvas.width/2 - 45, board.canvas.height/2 - 45);
+monster = new Monster(32, 32, images[2], random(480), random(350));
+village = new Village(4000);
 
 // Monster creation
 var monsterArmy = [];
-for(var i = 0; i < 4; i++){
+for(var i = 0; i < 3; i++){
   monsterArmy.push(monster);
 }
 
+
 $(document).ready(function() {
+  // Creación del canvas
   board.start();
 
+  // Flujo de pantallas
   $('.start').click(function(){
     $('#menu').toggleClass('active hidden');
     $('#game').toggleClass('hidden active');
     $('#sidebar').toggleClass('hidden active');
   });
 
-  guardian = new Player(45, 40, './images/guardian.png', board.canvas.width/2, board.canvas.height/2 - 45);
-  guardian2 = new Player(45, 40, './images/guardian.png', board.canvas.width/2 - 45, board.canvas.height/2 - 45);
-
-  update();
+  setInterval(update, 20)
 });
 
 function update() {
@@ -66,11 +51,11 @@ function update() {
     // Village DOM
     document.getElementById('village-health').innerHTML = village.loseHealth();
 
-    // RAF
-    requestAnimationFrame(update);
-
     // Board
     board.clear();
+
+    // RAF
+    // requestAnimationFrame(update);
 }
 
 function random(max) {
@@ -79,7 +64,6 @@ function random(max) {
 
 document.onkeydown = function(e) {
   switch (e.keyCode) {
-    // GUARDIAN one ARROW KEYS
     case 38:
       guardian.moveUp();
       break;
@@ -92,7 +76,7 @@ document.onkeydown = function(e) {
     case 39:
       guardian.moveRight();
       break;
-    // GUARDIAN two WASD
+
     case 87:
       guardian2.moveUp();
       break;

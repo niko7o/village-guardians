@@ -4,6 +4,7 @@ function Monster(width, height, imgsrc, x, y) {
     this.x = x;
     this.y = y;
     this.life = 3;
+    this.monsterArmy = [];
 
     this.draw = function(){
       ctx = board.context;
@@ -31,4 +32,10 @@ Monster.prototype.move = function(){
   setTimeout(function(){
     this.y -= 5;
   }, 2000)
+}
+
+Monster.prototype.createArmy = function(){
+  for(var i = 0; i < 3; i++){
+    monsterArmy.push(monster);
+  }
 }
