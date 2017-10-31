@@ -1,26 +1,27 @@
 // Preloader imágenes
 var images = [];
-var _player1img = './images/guardian.png';
+var _guardianimg = './images/guardian.png';
 var _player2img = './images/guardian.png';
 var _monsterimg = './images/monster.png';
-images.push(_player1img);
-images.push(_player2img);
+images.push(_guardianimg);
 images.push(_monsterimg);
 
 // Init our objects
-board = new Board();
+board = new Board(640, 480);
 grid = new Grid(32, 15, 15);
-guardian = new Player(45, 40, images[0], board.canvas.width/2, board.canvas.height/2 - 45);
-guardian2 = new Player(45, 40, images[1], board.canvas.width/2 - 45, board.canvas.height/2 - 45);
-monster = new Monster(32, 32, images[2], random(480), random(350));
+guardian = new Player(45, 40, images[0], board.width/2, board.height/2 - 45);
+guardian2 = new Player(45, 40, images[0], board.width/2 - 45, board.height/2 - 45);
+monster = new Monster(32, 32, images[1], random(480), random(350));
 village = new Village(4000);
+
+// Multikeys
+keys = [];
 
 // Monster creation
 var monsterArmy = [];
 for(var i = 0; i < 3; i++){
   monsterArmy.push(monster);
 }
-
 
 $(document).ready(function() {
   // Creación del canvas
@@ -37,62 +38,45 @@ $(document).ready(function() {
 });
 
 function update() {
-    // Monsters (to be array)
+    // Monsters
     monster.draw();
+    document.getElementById('monsters-left').innerHTML = monsterArmy.length;
 
-    // Player 1
-    guardian.draw();
-    guardian.running();
+    // Guardians
+    updateGuardians();
 
-    // Player 2
-    guardian2.draw();
-    guardian2.running();
-
-    // Village DOM
+    // Village health status (realtime)
     document.getElementById('village-health').innerHTML = village.loseHealth();
 
-    // Board
+    // Reset
     board.clear();
 
-    // RAF
-    // requestAnimationFrame(update);
+    // Keys
+    if (keys[37]) { guardian.moveLeft(); }
+    if (keys[38]) { guardian.moveUp(); }
+    if (keys[39]) { guardian.moveRight(); }
+    if (keys[40]) { guardian.moveDown(); }
+
+    if (keys[65]) { guardian2.moveLeft(); }
+    if (keys[87]) { guardian2.moveUp(); }
+    if (keys[68]) { guardian2.moveRight(); }
+    if (keys[83]) { guardian2.moveDown(); }
+
+    document.body.addEventListener("keydown", function (e) {
+       keys[e.keyCode] = true;
+    });
+    document.body.addEventListener("keyup", function (e) {
+       keys[e.keyCode] = false;
+       guardian.stopped();
+       guardian2.stopped();
+    });
+}
+
+function updateGuardians(){
+  guardian.draw();
+  guardian2.draw();
 }
 
 function random(max) {
   return Math.floor(Math.random() * (max));
-}
-
-document.onkeydown = function(e) {
-  switch (e.keyCode) {
-    case 38:
-      guardian.moveUp();
-      break;
-    case 40:
-      guardian.moveDown();
-      break;
-    case 37:
-      guardian.moveLeft();
-      break;
-    case 39:
-      guardian.moveRight();
-      break;
-
-    case 87:
-      guardian2.moveUp();
-      break;
-    case 83:
-      guardian2.moveDown();
-      break;
-    case 65:
-      guardian2.moveLeft();
-      break;
-    case 68:
-      guardian2.moveRight();
-      break;
-  }
-}
-
-document.onkeyup = function(e) {
-  guardian.stopped();
-  guardian2.stopped();
 }

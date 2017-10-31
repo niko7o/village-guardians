@@ -53,16 +53,37 @@ canvas {
   margin-top: -5px;
 }
 
+#sidebar table {
+  width: 100%;
+  padding: 25px;
+}
+
 #sidebar span {
-  display: inline-block;
-  padding: 40px 7px;
   color: white;
 }
 
-#sidebar img {
-  margin: 40px 0px 0px 31px;
+#sidebar tr:first-child img {
+  margin-bottom: -5px;
+  margin-right: 5px;
   width: 20px;
   height: 20px;
+}
+
+#sidebar tr:nth-child(2) {
+  font-size: 12px;
+  text-transform: uppercase;
+  color:white;
+  font-weight: bold;
+}
+
+#monsters-left {
+  padding: 6px 10px;
+  background-color: #ce2c2c;
+  border-radius: 9999px;
+}
+
+tr {
+  height: 30px;
 }
 
 .stop {

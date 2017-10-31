@@ -3,10 +3,11 @@ function Player(width, height, imgsrc, x, y) {
     this.height = height;
     this.x = x;
     this.y = y;
-    this.speedX = 0;
-    this.speedY = 0;
+    this.velX = 0;
+    this.velY = 0;
     this.score = 0;
-    this.moving = false; //for keydown and multiple press events
+    this.maxSpeed = 2;
+    this.friction = 0.75;
 
     this.draw = function(){
        this.image = new Image();
@@ -15,37 +16,37 @@ function Player(width, height, imgsrc, x, y) {
          ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
        }.bind(this);
        this.image.src = imgsrc;
+       this.x += this.velX;
+       this.y += this.velY;
     }
 }
 
 Player.prototype.moveUp = function(){
-  // add an up moving guardian sprite
-  this.speedY = -2;
+  if (this.velY > -this.maxSpeed) {
+      this.velY--;
+  }
 }
 
 Player.prototype.moveDown = function(){
-  // add a down moving guardian sprite
-  this.speedY = 2;
+  if (this.velY < this.maxSpeed) {
+      this.velY++;
+  }
 }
 
 Player.prototype.moveLeft = function(){
-  // add a left moving guardian sprit
-  this.speedX = -2;
+  if (this.velX > -this.maxSpeed) {
+      this.velX--;
+  }
 }
 
 Player.prototype.moveRight = function(){
-  // add a right moving guardian sprite
-  this.speedX = 2;
+  if (this.velX < this.maxSpeed) {
+      this.velX++;
+  }
 }
 
 Player.prototype.stopped = function(){
   // add a stopped guardian sprite
-  this.speedX = 0;
-  this.speedY = 0;
-}
-
-Player.prototype.running = function(){
-  // add a running guardian sprite
-  this.x += this.speedX;
-  this.y += this.speedY;
+  this.velX = 0;
+  this.velY = 0;
 }
