@@ -29,13 +29,8 @@ Player.prototype.moveDown = function(){
 }
 
 Player.prototype.moveLeft = function(){
-  // add a left moving guardian sprite
-  if(this.x + this.speedX == 32){
-    this.x = 32;
-    this.speedX = 0;
-  } else {
-    this.speedX = -2;
-  }
+  // add a left moving guardian sprit
+  this.speedX = -2;
 }
 
 Player.prototype.moveRight = function(){

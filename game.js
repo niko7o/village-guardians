@@ -1,29 +1,29 @@
-// ----------------------------- IMAGE LOADER -----------------------------
-var imagesOK = 0;
-var imgs = [];
-
-var imageURLs = [];
-imageURLs.push("https://i.imgur.com/R13yolQ.png");
-imageURLs.push("https://i.imgur.com/D6rITFC.png");
-
-loadAllImages();
-
-function loadAllImages(){
-    for (var i = 0; i < imageURLs.length; i++) {
-        var img = new Image();
-        imgs.push(img);
-        img.onload = function(){
-            imagesOK++;
-            if (imagesOK >= imageURLs.length) {
-                console.log('images are ready!');
-            }
-        };
-        img.onerror = function(){ alert("image load failed"); }
-        img.crossOrigin = "anonymous";
-        img.src = imageURLs[i];
-    }
-}
-// END OF IMAGE LOADER
+// // ----------------------------- IMAGE LOADER -----------------------------
+// var imagesOK = 0;
+// var imgs = [];
+//
+// var imageURLs = [];
+// imageURLs.push("https://i.imgur.com/R13yolQ.png");
+// imageURLs.push("https://i.imgur.com/D6rITFC.png");
+//
+// loadAllImages();
+//
+// function loadAllImages(){
+//     for (var i = 0; i < imageURLs.length; i++) {
+//         var img = new Image();
+//         imgs.push(img);
+//         img.onload = function(){
+//             imagesOK++;
+//             if (imagesOK >= imageURLs.length) {
+//                 console.log('images are ready!');
+//             }
+//         };
+//         img.onerror = function(){ alert("image load failed"); }
+//         img.crossOrigin = "anonymous";
+//         img.src = imageURLs[i];
+//     }
+// }
+// // END OF IMAGE LOADER
 
 board = new Board();
 village = new Village(4000);
@@ -47,6 +47,8 @@ $(document).ready(function() {
 
   guardian = new Player(45, 40, './images/guardian.png', board.canvas.width/2, board.canvas.height/2 - 45);
   guardian2 = new Player(45, 40, './images/guardian.png', board.canvas.width/2 - 45, board.canvas.height/2 - 45);
+
+  update();
 });
 
 function update() {
@@ -61,20 +63,18 @@ function update() {
     guardian2.draw();
     guardian2.running();
 
-    // Board
-    board.clear();
-    //requestAnimationFrame(update);
-
     // Village DOM
     document.getElementById('village-health').innerHTML = village.loseHealth();
+
+    // RAF
+    requestAnimationFrame(update);
+
+    // Board
+    board.clear();
 }
 
 function random(max) {
   return Math.floor(Math.random() * (max));
-}
-
-function populateMonsterArmy(number){
-
 }
 
 document.onkeydown = function(e) {

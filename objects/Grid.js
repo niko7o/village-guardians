@@ -27,7 +27,7 @@ Grid.prototype.forbiddenTiles = function() {
   for(var c = 0; c < 15; c++){
     for(var r = 0; r < 15; r++){
       if(this.matrix[c][r] == 1){
-        console.log("Forbidden tile at x:" + r*32 + " and y:" + c*32);
+        console.log("Forbidden tile at x:" + r*this.tileSize + " and y:" + c*32);
       }
     }
   }
