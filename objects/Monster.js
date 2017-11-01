@@ -3,7 +3,7 @@ function Monster(width, height, imgsrc, x, y) {
     this.height = height;
     this.x = x;
     this.y = y;
-    this.life = 3;
+    this.life = 2;
     this.monsterArmy = [];
 
     this.draw = function(){
