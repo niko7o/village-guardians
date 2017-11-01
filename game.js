@@ -1,20 +1,9 @@
-// Preloader imágenes
-var images = [];
-var _player1 = './sprites/down-0.png';
-var _player2 = './sprites/down-3.png';
-var _monsterimg = './images/monster.png';
-var _monsterimg2 = './images/monster2.png';
-images.push(_player1);
-images.push(_player2);
-images.push(_monsterimg);
-images.push(_monsterimg2);
-
-// Init our objects
+// Objects init
 board = new Board(640, 480);
 grid = new Grid(32, 15, 15);
-guardian = new Player(32, 32, images[0], board.width/2, board.height/2 - 45);
-guardian2 = new Player(32, 32, images[1], board.width/2 - 45, board.height/2 - 45);
-monster = new Monster(32, 28, images[2], random(480), random(350), 1);
+guardian = new Player(32, 32, './sprites/down-0.png', board.width/2, board.height/2 - 45);
+guardian2 = new Player(32, 32, './sprites/down-3.png', board.width/2 - 45, board.height/2 - 45);
+monster = new Monster();
 village = new Village(4000);
 
 // Multikeys
@@ -22,25 +11,33 @@ keys = [];
 
 $(document).ready(function() {
   board.start();
-  board.stop();
+
   $('.start').click(function(){
-    board.start();
     $('#menu').toggleClass('active hidden');
     $('#game').toggleClass('hidden active');
     $('#sidebar').toggleClass('hidden active');
   });
 
-  setInterval(update, 1000/60)
+  guardian.draw(); // Precarga
+
   //requestAnimationFrame(update);
+  setInterval(update, 1000/60)
 });
+
+var randomMonsterSprite = ['./images/monster.png','./images/monster2.png']
+for(var i = 0; i < 6; i++){
+  monster.army.push(new Monster(32, 28, randomMonsterSprite[0], random(480), random(350), i));
+}
 
 function update() {
     // Monsters
-    monster.draw();
-    //monster.move();
+    for(var i = 0; i < monster.army.length; i++){ monster.army[i].draw(); }
 
-    // Guardians
+    // Player 1
     guardian.draw();
+    guardian.updateDraw();
+
+    // Player 2
     guardian2.draw();
 
     // Sidebar information
@@ -55,8 +52,14 @@ function update() {
     // What key is being pressed
     keyPresses();
 
-    //requestAnimationFrame(update);
     board.clear();
+    //requestAnimationFrame(update);
+}
+
+// **** UTILITY FUNCTIONS ****
+
+function random(max) {
+  return Math.floor(Math.random() * (max));
 }
 
 function keyPresses(){
@@ -78,7 +81,7 @@ function keyPresses(){
     guardian.image.src = guardian.spritesDown[0];
     guardian.moveDown();
   }
-  if (keys[32]) {
+  if (keys[32]) { // Spacebar
     guardian.attack();
   }
 
@@ -98,6 +101,9 @@ function keyPresses(){
     guardian2.image.src = guardian2.spritesDown[3];
     guardian2.moveDown();
   }
+  if (keys[69]) { // E
+    guardian2.attack();
+  }
 
   document.body.addEventListener("keydown", function (e) {
      keys[e.keyCode] = true;
@@ -106,10 +112,4 @@ function keyPresses(){
   document.body.addEventListener("keyup", function (e) {
      keys[e.keyCode] = false;
   });
-
-
-}
-
-function random(max) {
-  return Math.floor(Math.random() * (max));
 }

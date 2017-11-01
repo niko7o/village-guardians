@@ -5,8 +5,10 @@ function Player(width, height, imgsrc, x, y) {
     this.y = y;
     this.speed = 1.4;
     this.score = 0;
-    this.direction = 'S';
+    this.direction = 'E';
     this.collide = false;
+    this.image = new Image();
+    this.attackImage = new Image();
 
     this.spritesUp = ['./sprites/up-0.png','./sprites/up-1.png','./sprites/up-2.png','./sprites/up-3.png','./sprites/up-4.png','./sprites/up-5.png',];
     this.spritesLeft = ['./sprites/left-0.png','./sprites/left-1.png','./sprites/left-2.png','./sprites/left-3.png','./sprites/left-4.png','./sprites/left-5.png'];
@@ -14,66 +16,61 @@ function Player(width, height, imgsrc, x, y) {
     this.spritesRight = ['./sprites/right-0.png','./sprites/right-1.png','./sprites/right-2.png','./sprites/right-3.png','./sprites/right-4.png','./sprites/right-5.png'];
 
     this.draw = function(){
-       this.image = new Image();
-       ctx = board.context;
-       this.image.onload = function() {
-         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-       }.bind(this);
+       var that = this;
        this.image.src = imgsrc;
+       this.image.onload = function() {
+         board.context.drawImage(that.image, that.x, that.y, that.width, that.height);
+       }
+    }
+
+    this.attack = function(){
+       var that = this;
+       this.attackImage.src = './images/attack.gif';
+       this.attackImage.onload = function() {
+         board.context.drawImage(that.attackImage, that.x, that.y - 25, that.width, that.height);
+       }
+      console.log(that.x);
+    }
+
+    this.updateDraw = function(){
+        board.context.drawImage(this.image, this.x, this.y);
     }
 }
 
-Player.prototype.attack = function(){
-  var atk_dir_y;
-  var atk_dir_x;
-
-  if(this.direction == 'N') atk_dir_y = this.y - 32;
-  if(this.direction == 'W') atk_dir_y = this.x - 32;
-  if(this.direction == 'S') atk_dir_x = this.y + 32;
-  if(this.direction == 'E') atk_dir_x = this.x + 32;
-
-  this.image = new Image();
-  ctx = board.context;
-  ctx.drawImage(this.image,  atk_dir_x, atk_dir_y, this.width, this.height);
-  this.image.src = './images/attack.gif';
-
-  if(monster.x - this.x < 32 || monster.y - this.y < 32) console.log('HIT!!!')
-}
-
-Player.prototype.collisionChecker = function(){
+Player.prototype.checkMonsterCollision = function(){
   if (this.x < monster.x + monster.width &&
      this.x + this.width > monster.x &&
      this.y < monster.y + monster.height &&
      this.height + this.y > monster.y) {
-      console.log('collision!')
+      console.log('collision at direction! ' + this.direction)
       this.collide = true;
   }
 }
 
 Player.prototype.moveUp = function(){
   this.direction = 'N';
-  if(!this.collide) this.y -= this.speed;
+  this.y -= this.speed;
   if(this.y <= 10) this.y = 10;
-  this.collisionChecker();
+  this.checkMonsterCollision();
 }
 
 Player.prototype.moveDown = function(){
   this.direction = 'S';
   this.y += this.speed;
   if(this.y >= 420) this.y = 420;
-  this.collisionChecker();
+  this.checkMonsterCollision();
 }
 
 Player.prototype.moveLeft = function(){
   this.direction = 'W';
   this.x -= this.speed;
   if(this.x <= 32) this.x = 32;
-  this.collisionChecker();
+  this.checkMonsterCollision();
 }
 
 Player.prototype.moveRight = function(){
   this.direction = 'E';
   this.x += this.speed;
   if(this.x >= 570) this.x = 570;
-  this.collisionChecker();
+  this.checkMonsterCollision();
 }
