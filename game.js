@@ -21,6 +21,7 @@ $(document).ready(function() {
   guardian.draw(); // Precarga
 
   //requestAnimationFrame(update);
+  
   setInterval(update, 1000/60)
 });
 
