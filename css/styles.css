@@ -1,7 +1,9 @@
 body {
  margin: 0;
  font-family: 'MedievalSharp', cursive;
+ font-size: 14px;
  color: white;
+ background-color: black;
 }
 
 .flex {
@@ -46,9 +48,9 @@ canvas {
 
 #sidebar {
   order: 2;
-  width: 224px;
-  height: 480px;
-  background-image: url('../images/sidebar.png');
+  width: 242px;
+  height: 432px;
+  background-image: url('../images/sidebar2.png');
   z-index: 2;
   margin-left: -30px;
   margin-top: -5px;
@@ -79,7 +81,6 @@ canvas {
 }
 
 #sidebar .avatar {
-  height: 100px;
   font-size: 12px;
   text-transform: uppercase;
   color:white;

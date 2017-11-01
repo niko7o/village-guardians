@@ -4,19 +4,19 @@
     <meta charset="utf-8">
     <title>Village Guardians</title>
     <link rel="stylesheet" href="./css/styles.css">
-    <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- Objects -->
     <script src="./objects/Board.js"></script>
+    <script src="./objects/Player.js"></script>
     <script src="./objects/Monster.js"></script>
     <script src="./objects/Grid.js"></script>
-    <script src="./objects/Player.js"></script>
     <script src="./objects/Village.js"></script>
     <!-- Main -->
     <script src="game.js"></script>
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css?family=MedievalSharp" rel="stylesheet">
   </head>
+
   <body>
     <div class="village-guardians flex">
       <!-- Menu -->
@@ -31,14 +31,16 @@
                 <tr><td><img src="images/health-icon.png" width="40" height="40"/><span id="village-health"></span></td></tr>
                 <tr><td>Monsters left: <span id="monsters-left"></span></td></tr>
 
-                <tr class="player-name"><td>Nikoto</td></tr>
-                <!-- <tr><td><div class="avatar"><img src=""></img></div></td></tr> -->
+                <tr class="player-name"><td>- NIKOTO -</td></tr>
+                <tr><td><div class="avatar"><img src="sprites/down-1.png"></img></div></td></tr>
                 <tr class="score"><td>Score: <span id="score">9</span></td></tr>
 
-                <tr class="player-name"><td>Juan</td></tr>
-                <!-- <tr><td><div class="avatar"><img src=""></img></div></td></tr> -->
+                <tr class="player-name"><td>- IRONHACK -</td></tr>
+                <tr><td><div class="avatar"><img src="sprites/down-3.png"></img></div></td></tr>
                 <tr class="score"><td>Score: <span id="score">3</span></td></tr>
 
+                <tr></tr>
+                <tr></tr>
                 <tr><td>x: <span id="xC"></span><br></td></tr>
                 <tr><td>y: <span id="yC"></span></td></tr>
               </table>

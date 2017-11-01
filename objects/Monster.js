@@ -26,16 +26,10 @@ Monster.prototype.infect = function(){
 }
 
 Monster.prototype.move = function(){
-    this.y += 0.4;
+    this.y += 2;
 
     if(monster.x <= 32) monster.x = 32;
     if(monster.x >= board.width - 80) monster.x = board.width - 80;
     if(monster.y <= 32) monster.y = 32;
     if(monster.y >= board.height - 64) monster.y = board.height - 64;
-}
-
-Monster.prototype.createArmy = function(){
-  for(var i = 0; i < 3; i++){
-    monsterArmy.push(monster);
-  }
 }

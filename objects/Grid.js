@@ -35,8 +35,29 @@ Grid.prototype.forbiddenTiles = function() {
 
 
 Grid.prototype.makeCollision = function() {
-  
+
   ctx = board.context;
-  ctx.fillStyle = 'red';
-  ctx.fillRect(10, 10, 100, 100);
+  ctx.fillStyle = 'rgba(255,0,0,0.3)';
+  ctx.fillRect(108, 94, 85, 100);
+
+  ctx.fillStyle = 'rgba(255,0,0,0.3)';
+  ctx.fillRect(320, 0, 85, 97);
+
+  ctx.fillStyle = 'rgba(255,0,0,0.3)';
+  ctx.fillRect(447, 0, 85, 97);
+
+  ctx.fillStyle = 'rgba(255,0,0,0.3)';
+  ctx.fillRect(489, 287, 87, 97);
+
+  ctx.fillStyle = 'rgba(255,0,0,0.3)';
+  ctx.fillRect(382, 274, 45, 105);
+
+  ctx.fillStyle = 'rgba(255,0,0,0.3)';
+  ctx.fillRect(382, 274, 45, 105);
+
+  ctx.fillStyle = 'rgba(255,0,0,0.3)';
+  ctx.fillRect(294, 274, 45, 105);
+
+  ctx.fillStyle = 'rgba(255,0,0,0.3)';
+  ctx.fillRect(212, 274, 45, 105);
 }

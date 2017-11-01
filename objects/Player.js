@@ -3,7 +3,7 @@ function Player(width, height, imgsrc, x, y) {
     this.height = height;
     this.x = x;
     this.y = y;
-    this.speed = 1.2;
+    this.speed = 1.4;
     this.score = 0;
     this.direction = 'S';
     this.spritesUp = ['./sprites/up-0.png','./sprites/up-1.png','./sprites/up-2.png','./sprites/up-3.png','./sprites/up-4.png','./sprites/up-5.png',];
@@ -41,19 +41,23 @@ Player.prototype.attack = function(){
 Player.prototype.moveUp = function(){
   this.direction = 'N';
   this.y -= this.speed;
+  if(this.y <= 10) this.y = 10;
 }
 
 Player.prototype.moveDown = function(){
   this.direction = 'S';
   this.y += this.speed;
+  if(this.y >= 420) this.y = 420;
 }
 
 Player.prototype.moveLeft = function(){
   this.direction = 'W';
   this.x -= this.speed;
+  if(this.x <= 32) this.x = 32;
 }
 
 Player.prototype.moveRight = function(){
   this.direction = 'E';
   this.x += this.speed;
+  if(this.x >= 570) this.x = 570;
 }

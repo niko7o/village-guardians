@@ -22,8 +22,9 @@ keys = [];
 
 $(document).ready(function() {
   board.start();
-
+  board.stop();
   $('.start').click(function(){
+    board.start();
     $('#menu').toggleClass('active hidden');
     $('#game').toggleClass('hidden active');
     $('#sidebar').toggleClass('hidden active');
@@ -42,6 +43,7 @@ function update() {
     guardian.draw();
     guardian2.draw();
 
+
     // Sidebar information
     document.getElementById('village-health').innerHTML = village.loseHealth();
     document.getElementById('xC').innerHTML = Math.floor(guardian.x);
@@ -50,9 +52,6 @@ function update() {
 
     // Grid collisions
     grid.makeCollision();
-
-    // Reset
-    board.clear();
 
     // Keys
     if (keys[37]) {
@@ -102,6 +101,7 @@ function update() {
     });
 
     //requestAnimationFrame(update);
+    board.clear();
 }
 
 function random(max) {
