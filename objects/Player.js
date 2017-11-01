@@ -6,6 +6,8 @@ function Player(width, height, imgsrc, x, y) {
     this.speed = 1.4;
     this.score = 0;
     this.direction = 'S';
+    this.collide = false;
+
     this.spritesUp = ['./sprites/up-0.png','./sprites/up-1.png','./sprites/up-2.png','./sprites/up-3.png','./sprites/up-4.png','./sprites/up-5.png',];
     this.spritesLeft = ['./sprites/left-0.png','./sprites/left-1.png','./sprites/left-2.png','./sprites/left-3.png','./sprites/left-4.png','./sprites/left-5.png'];
     this.spritesDown = ['./sprites/down-0.png','./sprites/down-1.png','./sprites/down-2.png','./sprites/down-3.png','./sprites/down-4.png','./sprites/down-5.png'];
@@ -38,26 +40,40 @@ Player.prototype.attack = function(){
   if(monster.x - this.x < 32 || monster.y - this.y < 32) console.log('HIT!!!')
 }
 
+Player.prototype.collisionChecker = function(){
+  if (this.x < monster.x + monster.width &&
+     this.x + this.width > monster.x &&
+     this.y < monster.y + monster.height &&
+     this.height + this.y > monster.y) {
+      console.log('collision!')
+      this.collide = true;
+  }
+}
+
 Player.prototype.moveUp = function(){
   this.direction = 'N';
-  this.y -= this.speed;
+  if(!this.collide) this.y -= this.speed;
   if(this.y <= 10) this.y = 10;
+  this.collisionChecker();
 }
 
 Player.prototype.moveDown = function(){
   this.direction = 'S';
   this.y += this.speed;
   if(this.y >= 420) this.y = 420;
+  this.collisionChecker();
 }
 
 Player.prototype.moveLeft = function(){
   this.direction = 'W';
   this.x -= this.speed;
   if(this.x <= 32) this.x = 32;
+  this.collisionChecker();
 }
 
 Player.prototype.moveRight = function(){
   this.direction = 'E';
   this.x += this.speed;
   if(this.x >= 570) this.x = 570;
+  this.collisionChecker();
 }

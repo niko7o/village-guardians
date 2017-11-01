@@ -37,12 +37,11 @@ $(document).ready(function() {
 function update() {
     // Monsters
     monster.draw();
-    monster.move();
+    //monster.move();
 
     // Guardians
     guardian.draw();
     guardian2.draw();
-
 
     // Sidebar information
     document.getElementById('village-health').innerHTML = village.loseHealth();
@@ -53,55 +52,62 @@ function update() {
     // Grid collisions
     grid.makeCollision();
 
-    // Keys
-    if (keys[37]) {
-      guardian.image.src = guardian.spritesLeft[0];
-      guardian.moveLeft();
-    }
-    if (keys[38]) {
-      guardian.image.src = guardian.spritesUp[0];
-      guardian.moveUp();
-    }
-
-    if (keys[39]) {
-      guardian.image.src = guardian.spritesRight[0];
-      guardian.moveRight();
-    }
-    if (keys[40]) {
-      guardian.image.src = guardian.spritesDown[0];
-      guardian.moveDown();
-    }
-    if (keys[32]) {
-      guardian.attack();
-    }
-
-    if (keys[65]) {
-      guardian2.image.src = guardian2.spritesLeft[3];
-      guardian2.moveLeft();
-    }
-    if (keys[87]) {
-      guardian2.image.src = guardian2.spritesUp[3];
-      guardian2.moveUp();
-    }
-    if (keys[68]) {
-      guardian2.image.src = guardian2.spritesRight[3];
-      guardian2.moveRight();
-    }
-    if (keys[83]) {
-      guardian2.image.src = guardian2.spritesDown[3];
-      guardian2.moveDown();
-    }
-
-    document.body.addEventListener("keydown", function (e) {
-       keys[e.keyCode] = true;
-    });
-
-    document.body.addEventListener("keyup", function (e) {
-       keys[e.keyCode] = false;
-    });
+    // What key is being pressed
+    keyPresses();
 
     //requestAnimationFrame(update);
     board.clear();
+}
+
+function keyPresses(){
+  // Keys
+  if (keys[37]) {
+    guardian.image.src = guardian.spritesLeft[0];
+    guardian.moveLeft();
+  }
+  if (keys[38]) {
+    guardian.image.src = guardian.spritesUp[0];
+    guardian.moveUp();
+  }
+
+  if (keys[39]) {
+    guardian.image.src = guardian.spritesRight[0];
+    guardian.moveRight();
+  }
+  if (keys[40]) {
+    guardian.image.src = guardian.spritesDown[0];
+    guardian.moveDown();
+  }
+  if (keys[32]) {
+    guardian.attack();
+  }
+
+  if (keys[65]) {
+    guardian2.image.src = guardian2.spritesLeft[3];
+    guardian2.moveLeft();
+  }
+  if (keys[87]) {
+    guardian2.image.src = guardian2.spritesUp[3];
+    guardian2.moveUp();
+  }
+  if (keys[68]) {
+    guardian2.image.src = guardian2.spritesRight[3];
+    guardian2.moveRight();
+  }
+  if (keys[83]) {
+    guardian2.image.src = guardian2.spritesDown[3];
+    guardian2.moveDown();
+  }
+
+  document.body.addEventListener("keydown", function (e) {
+     keys[e.keyCode] = true;
+  });
+
+  document.body.addEventListener("keyup", function (e) {
+     keys[e.keyCode] = false;
+  });
+
+
 }
 
 function random(max) {
