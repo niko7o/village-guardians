@@ -3,11 +3,8 @@ function Player(width, height, imgsrc, x, y) {
     this.height = height;
     this.x = x;
     this.y = y;
-    this.velX = 0;
-    this.velY = 0;
+    this.speed = 1.2;
     this.score = 0;
-    this.maxSpeed = 2;
-    this.friction = 0.75;
     this.direction = 'S';
     this.spritesUp = ['./sprites/up-0.png','./sprites/up-1.png','./sprites/up-2.png','./sprites/up-3.png','./sprites/up-4.png','./sprites/up-5.png',];
     this.spritesLeft = ['./sprites/left-0.png','./sprites/left-1.png','./sprites/left-2.png','./sprites/left-3.png','./sprites/left-4.png','./sprites/left-5.png'];
@@ -25,43 +22,38 @@ function Player(width, height, imgsrc, x, y) {
 }
 
 Player.prototype.attack = function(){
-  //this.image.src = this.sprites[0]; attack sprite
+  var atk_dir_y;
+  var atk_dir_x;
+
+  if(this.direction == 'N') atk_dir_y = this.y - 32;
+  if(this.direction == 'W') atk_dir_y = this.x - 32;
+  if(this.direction == 'S') atk_dir_x = this.y + 32;
+  if(this.direction == 'E') atk_dir_x = this.x + 32;
+
+  this.image = new Image();
+  ctx = board.context;
+  ctx.drawImage(this.image,  atk_dir_x, atk_dir_y, this.width, this.height);
+  this.image.src = './images/attack.gif';
+
+  if(monster.x - this.x < 32 || monster.y - this.y < 32) console.log('HIT!!!')
 }
 
 Player.prototype.moveUp = function(){
-  this.x += this.velX;
-  this.y += this.velY;
-  if (this.velY > -this.maxSpeed) {
-      this.velY--;
-  }
+  this.direction = 'N';
+  this.y -= this.speed;
 }
 
 Player.prototype.moveDown = function(){
-  this.x += this.velX;
-  this.y += this.velY;
-  if (this.velY < this.maxSpeed) {
-      this.velY++;
-  }
+  this.direction = 'S';
+  this.y += this.speed;
 }
 
 Player.prototype.moveLeft = function(){
-  this.x += this.velX;
-  this.y += this.velY;
-  if (this.velX > -this.maxSpeed) {
-      this.velX--;
-  }
+  this.direction = 'W';
+  this.x -= this.speed;
 }
 
 Player.prototype.moveRight = function(){
-  this.x += this.velX;
-  this.y += this.velY;
-  if (this.velX < this.maxSpeed) {
-      this.velX++;
-  }
-}
-
-Player.prototype.stopped = function(){
-  // add a stopped guardian sprite
-  this.velX = 0;
-  this.velY = 0;
+  this.direction = 'E';
+  this.x += this.speed;
 }

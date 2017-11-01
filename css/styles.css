@@ -1,6 +1,7 @@
 body {
  margin: 0;
  font-family: 'MedievalSharp', cursive;
+ color: white;
 }
 
 .flex {
@@ -96,6 +97,10 @@ canvas {
 
 tr {
   height: 30px;
+}
+
+tr td {
+  text-align: center;
 }
 
 .stop {

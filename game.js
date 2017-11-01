@@ -3,26 +3,22 @@ var images = [];
 var _player1 = './sprites/down-0.png';
 var _player2 = './sprites/down-3.png';
 var _monsterimg = './images/monster.png';
+var _monsterimg2 = './images/monster2.png';
 images.push(_player1);
 images.push(_player2);
 images.push(_monsterimg);
+images.push(_monsterimg2);
 
 // Init our objects
 board = new Board(640, 480);
 grid = new Grid(32, 15, 15);
-guardian = new Player(45, 40, images[0], board.width/2, board.height/2 - 45);
-guardian2 = new Player(45, 40, images[1], board.width/2 - 45, board.height/2 - 45);
-monster = new Monster(32, 32, images[2], random(480), random(350));
+guardian = new Player(32, 32, images[0], board.width/2, board.height/2 - 45);
+guardian2 = new Player(32, 32, images[1], board.width/2 - 45, board.height/2 - 45);
+monster = new Monster(32, 28, images[2], random(480), random(350), 1);
 village = new Village(4000);
 
 // Multikeys
 keys = [];
-
-// Monster creation
-var monsterArmy = [];
-for(var i = 0; i < 3; i++){
-  monsterArmy.push(monster);
-}
 
 $(document).ready(function() {
   board.start();
@@ -40,13 +36,20 @@ $(document).ready(function() {
 function update() {
     // Monsters
     monster.draw();
-    document.getElementById('monsters-left').innerHTML = monsterArmy.length;
+    monster.move();
 
     // Guardians
-    updateGuardians();
+    guardian.draw();
+    guardian2.draw();
 
-    // Village health status (realtime)
+    // Sidebar information
     document.getElementById('village-health').innerHTML = village.loseHealth();
+    document.getElementById('xC').innerHTML = Math.floor(guardian.x);
+    document.getElementById('yC').innerHTML = Math.floor(guardian.y);
+    document.getElementById('monsters-left').innerHTML = monster.army.length;
+
+    // Grid collisions
+    grid.makeCollision();
 
     // Reset
     board.clear();
@@ -69,6 +72,9 @@ function update() {
       guardian.image.src = guardian.spritesDown[0];
       guardian.moveDown();
     }
+    if (keys[32]) {
+      guardian.attack();
+    }
 
     if (keys[65]) {
       guardian2.image.src = guardian2.spritesLeft[3];
@@ -90,18 +96,12 @@ function update() {
     document.body.addEventListener("keydown", function (e) {
        keys[e.keyCode] = true;
     });
+
     document.body.addEventListener("keyup", function (e) {
        keys[e.keyCode] = false;
-       guardian.stopped();
-       guardian2.stopped();
     });
 
     //requestAnimationFrame(update);
-}
-
-function updateGuardians(){
-  guardian.draw();
-  guardian2.draw();
 }
 
 function random(max) {
