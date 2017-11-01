@@ -21,15 +21,13 @@ Monster.prototype.create = function(){
   this.army.push(new Monster(32, 28, './images/monster.png', random(480), random(350), 1));
 }
 
-Monster.prototype.infect = function(){
-  console.log('infecting village');
+Monster.prototype.move = function(){
+    this.y += 20;
 }
 
-Monster.prototype.move = function(){
-    this.y += 2;
-
-    if(monster.x <= 32) monster.x = 32;
-    if(monster.x >= board.width - 80) monster.x = board.width - 80;
-    if(monster.y <= 32) monster.y = 32;
-    if(monster.y >= board.height - 64) monster.y = board.height - 64;
+Monster.prototype.stayInBounds = function() {
+  if(monster.x <= 32) monster.x = 32;
+  if(monster.x >= board.width - 80) monster.x = board.width - 80;
+  if(monster.y <= 32) monster.y = 32;
+  if(monster.y >= board.height - 64) monster.y = board.height - 64;
 }

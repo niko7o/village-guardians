@@ -1,8 +1,8 @@
 // Objects init
 board = new Board(640, 480);
-grid = new Grid(32, 15, 15);
-guardian = new Player(32, 32, './sprites/down-0.png', board.width/2, board.height/2 - 45);
-guardian2 = new Player(32, 32, './sprites/down-3.png', board.width/2 - 45, board.height/2 - 45);
+wall = new Wall();
+guardian = new Player(32, 32, './sprites/down-0.png', board.width / 2, board.height / 2 - 45);
+guardian2 = new Player(32, 32, './sprites/down-3.png', board.width / 2 - 45, board.height / 2 - 45);
 monster = new Monster();
 village = new Village(4000);
 
@@ -11,50 +11,49 @@ keys = [];
 
 $(document).ready(function() {
   board.start();
+  createMonsterArmy(4);
 
-  $('.start').click(function(){
+  setTimeout(function(){
+    monster.move();
+    console.log('hi')
+  }, 3000);
+
+  $('.start').click(function() {
     $('#menu').toggleClass('active hidden');
     $('#game').toggleClass('hidden active');
     $('#sidebar').toggleClass('hidden active');
   });
 
-  guardian.draw(); // Precarga
-
   //requestAnimationFrame(update);
-  
-  setInterval(update, 1000/60)
+  setInterval(update, 1000 / 60)
 });
 
-var randomMonsterSprite = ['./images/monster.png','./images/monster2.png']
-for(var i = 0; i < 6; i++){
-  monster.army.push(new Monster(32, 28, randomMonsterSprite[0], random(480), random(350), i));
-}
 
 function update() {
-    // Monsters
-    for(var i = 0; i < monster.army.length; i++){ monster.army[i].draw(); }
+  // Walls
+  wall.create(108, 94, 85, 100, 'red');
 
-    // Player 1
-    guardian.draw();
-    guardian.updateDraw();
+  // Monsters
+  drawMonsterArmy();
+  monster.stayInBounds();
 
-    // Player 2
-    guardian2.draw();
+  // Player 1
+  guardian.draw();
 
-    // Sidebar information
-    document.getElementById('village-health').innerHTML = village.loseHealth();
-    document.getElementById('xC').innerHTML = Math.floor(guardian.x);
-    document.getElementById('yC').innerHTML = Math.floor(guardian.y);
-    document.getElementById('monsters-left').innerHTML = monster.army.length;
+  // Player 2
+  guardian2.draw();
 
-    // Grid collisions
-    grid.makeCollision();
+  // Sidebar information
+  document.getElementById('village-health').innerHTML = village.loseHealth();
+  document.getElementById('xC').innerHTML = Math.floor(guardian.x);
+  document.getElementById('yC').innerHTML = Math.floor(guardian.y);
+  document.getElementById('monsters-left').innerHTML = monster.army.length;
 
-    // What key is being pressed
-    keyPresses();
+  // What key is being pressed
+  keyPresses();
 
-    board.clear();
-    //requestAnimationFrame(update);
+  board.clear();
+  //requestAnimationFrame(update);
 }
 
 // **** UTILITY FUNCTIONS ****
@@ -63,7 +62,24 @@ function random(max) {
   return Math.floor(Math.random() * (max));
 }
 
-function keyPresses(){
+function randomBetween(min, max) {
+  return Math.round(Math.random() * (max - min) + min);
+}
+
+function createMonsterArmy(max) {
+  var randomMonsterSprite = ['./images/monster.png', './images/monster2.png']
+  for (var i = 0; i < max; i++) {
+    monster.army.push(new Monster(32, 28, randomMonsterSprite[randomBetween(0, 1)], random(480), random(350), i));
+  }
+}
+
+function drawMonsterArmy() {
+  for (var i = 0; i < monster.army.length; i++) {
+    monster.army[i].draw();
+  }
+}
+
+function keyPresses() {
   // Keys
   if (keys[37]) {
     guardian.image.src = guardian.spritesLeft[0];
@@ -106,11 +122,11 @@ function keyPresses(){
     guardian2.attack();
   }
 
-  document.body.addEventListener("keydown", function (e) {
-     keys[e.keyCode] = true;
+  document.body.addEventListener("keydown", function(e) {
+    keys[e.keyCode] = true;
   });
 
-  document.body.addEventListener("keyup", function (e) {
-     keys[e.keyCode] = false;
+  document.body.addEventListener("keyup", function(e) {
+    keys[e.keyCode] = false;
   });
 }

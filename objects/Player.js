@@ -8,7 +8,7 @@ function Player(width, height, imgsrc, x, y) {
     this.direction = 'E';
     this.collide = false;
     this.image = new Image();
-    this.attackImage = new Image();
+    this.attackAnimation = new Image();
 
     this.spritesUp = ['./sprites/up-0.png','./sprites/up-1.png','./sprites/up-2.png','./sprites/up-3.png','./sprites/up-4.png','./sprites/up-5.png',];
     this.spritesLeft = ['./sprites/left-0.png','./sprites/left-1.png','./sprites/left-2.png','./sprites/left-3.png','./sprites/left-4.png','./sprites/left-5.png'];
@@ -23,17 +23,17 @@ function Player(width, height, imgsrc, x, y) {
        }
     }
 
-    this.attack = function(){
-       var that = this;
-       this.attackImage.src = './images/attack.gif';
-       this.attackImage.onload = function() {
-         board.context.drawImage(that.attackImage, that.x, that.y - 25, that.width, that.height);
-       }
-      console.log(that.x);
-    }
-
     this.updateDraw = function(){
         board.context.drawImage(this.image, this.x, this.y);
+    }
+
+    this.attack = function(){
+       var that = this;
+       this.attackAnimation.src = './images/attack.gif';
+       this.attackAnimation.onload = function() {
+         board.context.drawImage(that.attackAnimation, that.x, that.y - 25, that.width, that.height);
+       }
+
     }
 }
 
