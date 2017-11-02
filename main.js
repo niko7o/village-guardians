@@ -13,6 +13,12 @@ window.onload = function() {
   var canvas = document.getElementById("game");
   ctx = canvas.getContext("2d");
 
+  // jQuery
+  $('.btn').click(function() {
+    $('#start').css('display', 'none');
+    $('canvas').css('display', 'block');
+  });
+
   // Functions to execute once
   preload();
   createMonsterArmy(4);
@@ -59,7 +65,7 @@ window.onload = function() {
     keyPresses();
   }
 
-  function createWalls(){
+  function createWalls() {
     wall.array.push(new Wall(30, 90, 50, 40));
     wall.array.push(new Wall(180, 30, 50, 40));
     wall.array.push(new Wall(530, 214, 50, 40));
@@ -71,10 +77,10 @@ window.onload = function() {
   }
 
   function createMonsterArmy(max) {
-    var urls = ['./sprites/monster.png','./sprites/monster2.png'];
+    var urls = ['./sprites/monster.png', './sprites/monster2.png'];
     for (var i = 0; i < max; i++) {
       monster.army.push(new Monster(randomBetween(0, 600), randomBetween(0, 440), i));
-      monster.army[i].img.src = urls[randomBetween(0,1)];
+      monster.army[i].img.src = urls[randomBetween(0, 1)];
     }
   }
 
@@ -92,13 +98,12 @@ window.onload = function() {
   }
 
   function drawWalls() {
-    for(var i = 0; i < wall.array.length; i++){
+    for (var i = 0; i < wall.array.length; i++) {
       wall.draw(wall.array[i].x, wall.array[i].y, wall.array[i].width, wall.array[i].height, 'red');
     }
   }
 
   function keyPresses() {
-    // Keys
     if (keys[37]) {
       player1.img.src = './sprites/left-0.png';
       player1.moveLeft();

@@ -1,19 +1,33 @@
-canvas {
-  width: 640px;
-  height: 480px;
-  background-color: #564343;
-  box-shadow: 0px 0px 75px grey;
-}
-
 #start {
   display: block;
   width: 640px;
-  height: 640px;
+  height: 480px;
   background-image: url('images/background.png');
   background-size: cover;
+  z-index: 3;
 }
 
-.centered {
+canvas {
+  display: none;
+  width: 640px;
+  height: 480px;
+  background-color: #564343;
+  z-index: 2;
+}
+
+.shadow {
+  box-shadow: 0px 0px 75px grey;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.center {
   position: absolute;
   top: 0;
   left: 0;
