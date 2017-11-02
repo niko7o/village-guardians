@@ -36,8 +36,8 @@ Monster.prototype.die = function(id) {
 };
 
 Monster.prototype.move = function() {
-  this.dx = this.randomDirection(-0.5, 0.5);
-  this.dy = this.randomDirection(-0.5, 0.5);
+  this.dx = this.randomDirection(-1, 1);
+  this.dy = this.randomDirection(-1, 1);
   this.checkBoundaries();
   this.x += this.dx;
   this.y += this.dy;

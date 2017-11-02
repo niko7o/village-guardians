@@ -6,7 +6,7 @@ canvas {
 }
 
 #start {
-  display: none;
+  display: block;
   width: 640px;
   height: 640px;
   background-image: url('images/background.png');

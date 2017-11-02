@@ -34,46 +34,54 @@ Player.prototype.draw = function() {
 
 Player.prototype.attack = function() {
    switch (this.direction) {
-    case 'N':
-      ctx.drawImage(this.attackAnimation, this.x, this.y - 32, 50, 50); // image, x, y, width, height
+    case 'N': // Works well
+      ctx.drawImage(this.attackAnimation, this.x, this.y - 32); // image, x, y, width, height
       for(var i = 0; i < monster.army.length; i++){
-        if(this.y - 32 <= monster.army[i].y + monster.army[i].height &&
-           this.y - 32 >= monster.army[i].y &&
-           this.x >= monster.army[i].x &&
-           this.x <= monster.army[i].x + monster.army[i].width){
-          console.log('Monster ' + monster.army[i].id + ' hit upwards');
-          monster.die(i);
+        if(this.y - 32 <= monster.army[i].y + monster.army[i].height + 5 &&
+           this.y - 32 >= monster.army[i].y - 5 &&
+           this.x >= monster.army[i].x - 5 &&
+           this.x <= monster.army[i].x + monster.army[i].width + 5){
+           monster.die(i);
+           this.score += 1;
         }
       }
       break;
-    case 'W':
-      ctx.drawImage(this.attackAnimation, this.x - 32, this.y, 50, 50);
+
+    case 'W': // Works well
+      ctx.drawImage(this.attackAnimation, this.x - 32, this.y);
       for(var i = 0; i < monster.army.length; i++){
-        if(this.x - 32 <= monster.army[i].x + monster.army[i].width &&
-           this.x - 32 >= monster.army[i].x &&
-           this.y <= monster.army[i].y + monster.army[i].height &&
-           this.y >= monster.army[i].y){
-          console.log('Monster ' + monster.army[i].id + ' hit left');
-          monster.die(i);
+        if(this.x - 32 <= monster.army[i].x + monster.army[i].width + 5 &&
+           this.x - 32 >= monster.army[i].x - 5 &&
+           this.y <= monster.army[i].y + monster.army[i].height + 5 &&
+           this.y >= monster.army[i].y - 5){
+           monster.die(i);
+           this.score += 1;
         }
       }
       break;
-    case 'S':
-      ctx.drawImage(this.attackAnimation, this.x, this.y + 32, 50, 50);
+
+    case 'S': // To be revised
+      ctx.drawImage(this.attackAnimation, this.x, this.y + 32);
       for(var i = 0; i < monster.army.length; i++){
-        if(this.y + 32 <= monster.army[i].y + monster.army[i].height &&
-          this.y + 32 >= monster.army[i].y){
-          console.log('Monster ' + monster.army[i].id + ' hit south');
-          monster.die(i);
+        if(this.y + 32 <= monster.army[i].y + monster.army[i].height + 5 &&
+           this.y + 32 >= monster.army[i].y - 5 &&
+           this.x >= monster.army[i].x - 5 &&
+           this.x <= monster.army[i].x + monster.army[i].width + 5){
+           monster.die(i);
+           this.score += 1;
         }
       }
       break;
-    case 'E':
-      ctx.drawImage(this.attackAnimation, this.x + 32, this.y, 50, 50);
+
+    case 'E': // To be revised
+      ctx.drawImage(this.attackAnimation, this.x + 32, this.y);
       for(var i = 0; i < monster.army.length; i++){
-        if(this.x + 32 <= monster.army[i].x + monster.army[i].width && this.x + 32 >= monster.army[i].x){
-          console.log('Monster ' + monster.army[i].id + ' hit right');
-          monster.die(i);
+        if(this.x + 32 <= monster.army[i].x + monster.army[i].width + 5 &&
+           this.x + 32 >= monster.army[i].x - 5 &&
+           this.y <= monster.army[i].y + monster.army[i].height + 5 &&
+           this.y >= monster.army[i].y - 5){
+           monster.die(i);
+           this.score += 1;
         }
       }
       break;
@@ -118,28 +126,28 @@ Player.prototype.moveLeft = function() {
   this.x -= this.xVel;
   this.direction = 'W';
   this.collisions();
-  if(this.checkMonsterCollision()) this.x += 3;
+  if(this.checkMonsterCollision()) this.x += 2;
 };
 
 Player.prototype.moveUp = function() {
   this.y -= this.yVel;
   this.direction = 'N';
   this.collisions();
-  if(this.checkMonsterCollision()) this.y += 3;
+  if(this.checkMonsterCollision()) this.y += 2;
 };
 
 Player.prototype.moveRight = function() {
   this.x += this.xVel;
   this.direction = 'E';
   this.collisions();
-  if(this.checkMonsterCollision()) this.x -= 3;
+  if(this.checkMonsterCollision()) this.x -= 2;
 };
 
 Player.prototype.moveDown = function() {
   this.y += this.yVel;
   this.direction = 'S';
   this.collisions();
-  if(this.checkMonsterCollision()) this.y -= 3;
+  if(this.checkMonsterCollision()) this.y -= 2;
   if(this.checkWallCollision()) this.y = this.y;
 };
 

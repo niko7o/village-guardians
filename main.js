@@ -36,8 +36,16 @@ window.onload = function() {
 
     // Village
     village.loseHealth();
+
+    // Game info
     ctx.fillStyle = "white";
     ctx.fillText("Village health: " + village.health, 540, 20);
+
+    ctx.fillStyle = "white";
+    ctx.fillText("P1 SCORE: " + player1.score, 10, 20);
+
+    ctx.fillStyle = "white";
+    ctx.fillText("P2 SCORE: " + player2.score, 300, 20);
 
     // Walls
     // var walls = [];
