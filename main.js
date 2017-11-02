@@ -1,0 +1,141 @@
+// Object initiation
+player1 = new Player(320, 240);
+player2 = new Player(280, 240);
+monster = new Monster();
+village = new Village(2000);
+wall = new Wall();
+
+// Multikeys
+keys = [];
+
+window.onload = function() {
+  // Canvas init
+  var canvas = document.getElementById("game");
+  ctx = canvas.getContext("2d");
+
+  // Functions to execute once
+  preload();
+  createMonsterArmy(6);
+
+  function preload() {
+    player1.preload();
+    player2.preload();
+    player2.img.src = './sprites/down-3.png';
+  }
+
+  function update() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw players
+    player1.draw();
+    player2.draw();
+
+    // Draw monsters
+    moveMonsterArmy();
+    drawMonsterArmy();
+
+    // Village
+    village.loseHealth();
+    ctx.fillStyle = "white";
+    ctx.fillText("Village health: " + village.health, 540, 20);
+
+    // Walls
+    // var walls = [];
+    // wall = new Wall(30, 90, 50, 40);
+    // wall.create(30, 90, 50, 40, 'red');
+    //
+    // wall = new Wall(300, 150, 50, 40);
+    // wall.create(300, 150, 50, 40, 'red');
+
+    // Detect keypresses
+    keyPresses();
+  }
+
+  setInterval(update, 1000 / 60);
+
+  function randomBetween(min, max) {
+    return Math.round(Math.random() * (max - min) + min);
+  }
+
+  function createMonsterArmy(max) {
+    var urls = ['./sprites/monster.png','./sprites/monster2.png'];
+    for (var i = 0; i < max; i++) {
+      monster.army.push(new Monster(randomBetween(0, 600), randomBetween(0, 440), i));
+      monster.army[i].img.src = urls[randomBetween(0,1)];
+    }
+  }
+
+  function moveMonsterArmy() {
+    for (var i = 0; i < monster.army.length; i++) {
+      monster.army[i].move();
+      monster.army[i].checkPlayerCollision();
+    }
+  }
+
+  function drawMonsterArmy() {
+    for (var i = 0; i < monster.army.length; i++) {
+      monster.army[i].draw();
+    }
+  }
+
+  function keyPresses() {
+    // Keys
+    if (keys[37]) {
+      player1.img.src = './sprites/left-0.png';
+      player1.moveLeft();
+      player1.checkMonsterCollision();
+    }
+    if (keys[38]) {
+      player1.img.src = './sprites/up-0.png';
+      player1.moveUp();
+      player1.checkMonsterCollision();
+    }
+
+    if (keys[39]) {
+      player1.img.src = './sprites/right-0.png';
+      player1.moveRight();
+      player1.checkMonsterCollision();
+    }
+    if (keys[40]) {
+      player1.img.src = './sprites/down-1.png';
+      player1.moveDown();
+      player1.checkMonsterCollision();
+    }
+    if (keys[32]) { // Spacebar
+      player1.attack();
+    }
+
+    if (keys[65]) {
+      player2.img.src = './sprites/left-3.png';
+      player2.moveLeft();
+      player2.checkMonsterCollision();
+    }
+    if (keys[87]) {
+      player2.img.src = './sprites/up-3.png';
+      player2.moveUp();
+      player2.checkMonsterCollision();
+    }
+    if (keys[68]) {
+      player2.img.src = './sprites/right-3.png';
+      player2.moveRight();
+      player2.checkMonsterCollision();
+    }
+    if (keys[83]) {
+      player2.img.src = './sprites/down-4.png';
+      player2.moveDown();
+      player2.checkMonsterCollision();
+    }
+    if (keys[69]) { // E
+      player2.attack();
+    }
+  }
+
+  document.body.addEventListener("keydown", function(e) {
+    keys[e.keyCode] = true;
+  });
+
+  document.body.addEventListener("keyup", function(e) {
+    keys[e.keyCode] = false;
+  });
+
+};

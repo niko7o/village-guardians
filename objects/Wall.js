@@ -7,6 +7,8 @@ function Wall (x, y, width, height, color) {
 }
 
 Wall.prototype.create = function(x, y, width, height, color) {
-  board.context.fillStyle = color;
-  board.context.fillRect(x, y, width, height);
-}
+  var canvas = document.getElementById('game');
+  var ctx = canvas.getContext('2d');
+  ctx.fillStyle = color;
+  ctx.fillRect(x, y, width, height);
+};

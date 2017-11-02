@@ -1,53 +1,30 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Village Guardians</title>
-    <link rel="stylesheet" href="./css/styles.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <!-- Objects -->
-    <script src="./objects/Board.js"></script>
-    <script src="./objects/Player.js"></script>
-    <script src="./objects/Monster.js"></script>
-    <script src="./objects/Wall.js"></script>
-    <script src="./objects/Village.js"></script>
-    <!-- Main -->
-    <script src="game.js"></script>
-    <!-- Font -->
-    <link href="https://fonts.googleapis.com/css?family=MedievalSharp" rel="stylesheet">
-  </head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="styles.css">
+  <title>Village Guardians 2.0</title>
+  <!-- jQuery -->
+  <script src="jquery-3.2.1.min.js"></script>
+  <!-- Objects -->
+  <script src="objects/Player.js"></script>
+  <script src="objects/Monster.js"></script>
+  <script src="objects/Village.js"></script>
+  <script src="objects/Wall.js"></script>
+  <!-- Main -->
+  <script src="main.js"></script>
+</head>
 
   <body>
-    <div class="village-guardians flex">
-      <!-- Menu -->
-      <!-- <div id="menu" class="active">
-          <a class="start"><h1>Play</h1></a>
-      </div> -->
-
-      <!-- <div id="select" class="hidden"></div> -->
-      <div id="game" class="flex active">
-          <div id="sidebar" class="active">
-              <table>
-                <tr><td><img src="images/health-icon.png" width="40" height="40"/><span id="village-health"></span></td></tr>
-                <tr><td>Monsters left: <span id="monsters-left"></span></td></tr>
-
-                <tr class="player-name"><td>- NIKOTO -</td></tr>
-                <tr><td><div class="avatar"><img src="sprites/down-1.png"></img></div></td></tr>
-                <tr class="score"><td>Score: <span id="score">9</span></td></tr>
-
-                <tr class="player-name"><td>- IRONHACK -</td></tr>
-                <tr><td><div class="avatar"><img src="sprites/down-3.png"></img></div></td></tr>
-                <tr class="score"><td>Score: <span id="score">3</span></td></tr>
-
-                <tr></tr>
-                <tr></tr>
-                <tr><td>x: <span id="xC"></span> y: <span id="yC"></span></td></tr>
-              </table>
-          </div>
-      </div>
-
-      <!-- Credits -->
-      <div id="credits" class="hidden"></div>
-  </div>
+    <div id="start" class="center">
+      <img class="logo" src="./images/logo.png" />
+      <img class="btn player1" src="./images/player1.png" />
+      <img class="btn" src="./images/2players-nohover.png" />
+    </div>
+    <canvas id="game" class="center" width="640" height="480"></canvas>
+    <div id="gameover" class="center"></div>
   </body>
+
 </html>

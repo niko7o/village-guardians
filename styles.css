@@ -1,0 +1,39 @@
+canvas {
+  width: 640px;
+  height: 480px;
+  background-color: #564343;
+  box-shadow: 0px 0px 75px grey;
+}
+
+#start {
+  display: none;
+  width: 640px;
+  height: 640px;
+  background-image: url('images/background.png');
+  background-size: cover;
+}
+
+.centered {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+}
+
+.logo {
+  width: 330px;
+  display: block;
+  padding-top: 100px;
+  margin: 0 auto 20px;
+}
+
+.player1 {
+  margin-left: 100px;
+  margin-right: 30px;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
