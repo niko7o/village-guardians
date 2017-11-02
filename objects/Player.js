@@ -34,7 +34,7 @@ Player.prototype.draw = function() {
 
 Player.prototype.attack = function() {
    switch (this.direction) {
-    case 'N': // Works well
+    case 'N':
       ctx.drawImage(this.attackAnimation, this.x, this.y - 32); // image, x, y, width, height
       for(var i = 0; i < monster.army.length; i++){
         if(this.y - 32 <= monster.army[i].y + monster.army[i].height + 5 &&
@@ -94,7 +94,6 @@ Player.prototype.checkMonsterCollision = function() {
       this.x + this.width > monster.army[i].x &&
       this.y < monster.army[i].y + monster.army[i].height &&
       this.height + this.y > monster.army[i].y) {
-      //console.log('Monster collision @ ' + this.direction);
       return true;
     }
   }

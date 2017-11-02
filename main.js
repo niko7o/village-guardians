@@ -16,6 +16,7 @@ window.onload = function() {
   // Functions to execute once
   preload();
   createMonsterArmy(6);
+  createWalls();
 
   function preload() {
     player1.preload();
@@ -48,18 +49,22 @@ window.onload = function() {
     ctx.fillText("P2 SCORE: " + player2.score, 300, 20);
 
     // Walls
-    // var walls = [];
-    // wall = new Wall(30, 90, 50, 40);
-    // wall.create(30, 90, 50, 40, 'red');
-    //
-    // wall = new Wall(300, 150, 50, 40);
-    // wall.create(300, 150, 50, 40, 'red');
+    for(var i = 0; i < wall.array.length; i++){
+      wall.draw(wall.array[i].x, wall.array[i].y, wall.array[i].width, wall.array[i].height, 'red');
+    }
 
     // Detect keypresses
     keyPresses();
   }
 
   setInterval(update, 1000 / 60);
+
+  function createWalls(){
+    wall.array.push(new Wall(30, 90, 50, 40));
+    wall.array.push(new Wall(180, 30, 50, 40));
+    wall.array.push(new Wall(530, 214, 50, 40));
+    wall.array.push(new Wall(310, 430, 200, 30));
+  }
 
   function randomBetween(min, max) {
     return Math.round(Math.random() * (max - min) + min);

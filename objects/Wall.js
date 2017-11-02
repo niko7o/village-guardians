@@ -4,9 +4,10 @@ function Wall (x, y, width, height, color) {
   this.width = width;
   this.height = height;
   this.color = color;
+  this.array = [];
 }
 
-Wall.prototype.create = function(x, y, width, height, color) {
+Wall.prototype.draw = function(x, y, width, height, color) {
   var canvas = document.getElementById('game');
   var ctx = canvas.getContext('2d');
   ctx.fillStyle = color;
