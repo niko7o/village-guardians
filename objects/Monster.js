@@ -23,8 +23,6 @@ Monster.prototype.preload = function() {
 
 Monster.prototype.draw = function() {
   ctx.drawImage(this.img, this.x, this.y);
-  ctx.fillStyle = "white";
-  ctx.fillText(this.id, this.x + 10, this.y - 10);
 };
 
 Monster.prototype.create = function() {

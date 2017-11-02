@@ -15,8 +15,11 @@ window.onload = function() {
 
   // Functions to execute once
   preload();
-  createMonsterArmy(6);
+  createMonsterArmy(4);
   createWalls();
+
+  // Game loop
+  var myGame = setInterval(update, 1000 / 60);
 
   function preload() {
     player1.preload();
@@ -25,6 +28,7 @@ window.onload = function() {
   }
 
   function update() {
+    // Clear board
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Draw players
@@ -34,6 +38,9 @@ window.onload = function() {
     // Draw monsters
     moveMonsterArmy();
     drawMonsterArmy();
+
+    // Draw walls
+    drawWalls();
 
     // Village
     village.loseHealth();
@@ -48,16 +55,9 @@ window.onload = function() {
     ctx.fillStyle = "white";
     ctx.fillText("P2 SCORE: " + player2.score, 300, 20);
 
-    // Walls
-    for(var i = 0; i < wall.array.length; i++){
-      wall.draw(wall.array[i].x, wall.array[i].y, wall.array[i].width, wall.array[i].height, 'red');
-    }
-
     // Detect keypresses
     keyPresses();
   }
-
-  setInterval(update, 1000 / 60);
 
   function createWalls(){
     wall.array.push(new Wall(30, 90, 50, 40));
@@ -88,6 +88,12 @@ window.onload = function() {
   function drawMonsterArmy() {
     for (var i = 0; i < monster.army.length; i++) {
       monster.army[i].draw();
+    }
+  }
+
+  function drawWalls() {
+    for(var i = 0; i < wall.array.length; i++){
+      wall.draw(wall.array[i].x, wall.array[i].y, wall.array[i].width, wall.array[i].height, 'red');
     }
   }
 
@@ -141,6 +147,7 @@ window.onload = function() {
     if (keys[69]) { // E
       player2.attack();
     }
+    if (keys[80]) clearInterval(myGame);
   }
 
   document.body.addEventListener("keydown", function(e) {
