@@ -1,3 +1,5 @@
+body { overflow: hidden; }
+
 #start {
   display: block;
   width: 640px;
@@ -7,12 +9,31 @@
   z-index: 3;
 }
 
+#gameStarted {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
 canvas {
   display: none;
   width: 640px;
   height: 480px;
-  background-color: #564343;
+  background-image: url('./images/village1.png');
   z-index: 2;
+  order: 1;
+}
+
+#sidebar {
+  display: none;
+  width: 200px;
+  height: 480px;
+  background-color: #e0e0e0;
+  order: 2;
+  border: 1px solid #c8c8c8;
+  box-sizing: border-box;
 }
 
 .shadow {
@@ -45,7 +66,7 @@ canvas {
 
 .player1 {
   margin-left: 100px;
-  margin-right: 30px;
+  margin-right: 64px;
 }
 
 .btn:hover {

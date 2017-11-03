@@ -1,6 +1,6 @@
 // Object initiation
-player1 = new Player(320, 240);
-player2 = new Player(280, 240);
+player1 = new Player(350, 300);
+player2 = new Player(300, 300);
 monster = new Monster();
 village = new Village(2000);
 wall = new Wall();
@@ -17,6 +17,7 @@ window.onload = function() {
   $('.btn').click(function() {
     $('#start').css('display', 'none');
     $('canvas').css('display', 'block');
+    $('#sidebar').css('display', 'block');
   });
 
   // Functions to execute once
@@ -36,6 +37,8 @@ window.onload = function() {
   function update() {
     // Clear board
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    $('#player1x').html('x: ' + Math.round(player1.x));
+    $('#player1y').html('y: ' + Math.round(player1.y));
 
     // Draw players
     player1.draw();
@@ -46,7 +49,7 @@ window.onload = function() {
     drawMonsterArmy();
 
     // Draw walls
-    drawWalls();
+    // drawWalls();
 
     // Village
     village.loseHealth();
@@ -66,10 +69,19 @@ window.onload = function() {
   }
 
   function createWalls() {
-    wall.array.push(new Wall(30, 90, 50, 40));
-    wall.array.push(new Wall(180, 30, 50, 40));
-    wall.array.push(new Wall(530, 214, 50, 40));
-    wall.array.push(new Wall(310, 430, 200, 30));
+    //                        x   y   w   h
+    wall.array.push(new Wall(32, 30, 32, 32));
+    wall.array.push(new Wall(33, 165, 32, 32));
+    wall.array.push(new Wall(97, 226, 32, 32));
+    wall.array.push(new Wall(9, 324, 45, 55));
+    wall.array.push(new Wall(0, 420, 160, 32));
+    wall.array.push(new Wall(160, 428, 130, 32));
+    wall.array.push(new Wall(287, 384, 99, 32));
+    wall.array.push(new Wall(388, 428, 130, 32));
+    wall.array.push(new Wall(512, 352, 60, 62));
+    wall.array.push(new Wall(572, 415, 80, 62));
+    wall.array.push(new Wall(273, 163, 110, 90));
+    wall.array.push(new Wall(608, 0, 32, 125));
   }
 
   function randomBetween(min, max) {
@@ -99,7 +111,7 @@ window.onload = function() {
 
   function drawWalls() {
     for (var i = 0; i < wall.array.length; i++) {
-      wall.draw(wall.array[i].x, wall.array[i].y, wall.array[i].width, wall.array[i].height, 'red');
+      wall.draw(wall.array[i].x, wall.array[i].y, wall.array[i].width, wall.array[i].height, 'rgba(255,0,0,0.5)');
     }
   }
 
