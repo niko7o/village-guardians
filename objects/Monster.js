@@ -8,7 +8,8 @@ function Monster(x, y, id) {
   this.dx = 0;
   this.dy = 0;
   this.army = [];
-  this.isHit = false;
+  this.canvas = document.getElementById('game');
+  this.ctx = this.canvas.getContext('2d');
 }
 
 Monster.prototype.preload = function() {
@@ -17,12 +18,12 @@ Monster.prototype.preload = function() {
   var ctx = canvas.getContext('2d');
   this.img.src = './sprites/monster.png';
   this.img.onload = function() {
-    ctx.drawImage(that.img, that.x, that.y);
+    this.ctx.drawImage(that.img, that.x, that.y);
   };
 };
 
 Monster.prototype.draw = function() {
-  ctx.drawImage(this.img, this.x, this.y);
+  this.ctx.drawImage(this.img, this.x, this.y);
 };
 
 Monster.prototype.create = function() {
