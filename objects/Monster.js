@@ -26,7 +26,7 @@ Monster.prototype.draw = function() {
 };
 
 Monster.prototype.create = function() {
-  this.army.push(new Monster(Math.round(Math.random() * 640, Math.round(Math.random() * 480))));
+  this.army.push(new Monster(Math.round(Math.random() * 640, 320)));
 };
 
 Monster.prototype.die = function(id) {

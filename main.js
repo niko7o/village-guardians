@@ -2,15 +2,22 @@
 player1 = new Player(350, 300);
 player2 = new Player(300, 300);
 monster = new Monster();
-village = new Village(2000);
+village1 = new Village(2000);
 wall = new Wall();
-
+var isPaused = false;
 // Multikeys
 keys = [];
 
 window.onload = function() {
-  // Canvas init
+  // audio
+  var audio = new Audio('./audio/8bitrs.mp3');
+  audio.play();
+
+  // Game variables
   var players = 1;
+  var villagesCompleted = 1;
+
+  // Canvas init
   var canvas = document.getElementById('game');
   ctx = canvas.getContext('2d');
 
@@ -40,7 +47,7 @@ window.onload = function() {
     // Sidebar info
     $('#player1score').html(player1.score);
     $('#player2score').html(player2.score);
-    $('#villagehealth').html(village.health);
+    $('#villagehealth').html(village1.health);
 
     // Draw players
     if(players == 2){
@@ -58,16 +65,23 @@ window.onload = function() {
     drawWalls();
 
     // Village
-    village.loseHealth();
-    if(village.health > 0 && monster.army.length == 0){
-      alert('congrats!')
+    village1.loseHealth();
+
+    // Village 2
+    if(village1.health > 0 && monster.army.length == 0){
+      isPaused = true;
+      villagesCompleted++;
+      $('canvas').css('background-image','url('+'./images/village2.png');
+
+      village2 = new Village();
+
     }
 
     // Detect keypresses
     keyPresses();
 
     // Game over
-    if(village.health == 0){
+    if(village1.health == 0){
       clearInterval(myGame);
       $('canvas').css('filter',"blur(4px) grayscale(1)");
       $('canvas').css('transform','scale(1.03)');
@@ -121,6 +135,10 @@ window.onload = function() {
     for (var i = 0; i < wall.array.length; i++) {
       wall.draw(wall.array[i].x, wall.array[i].y, wall.array[i].width, wall.array[i].height, 'rgba(255,0,0,0.5)');
     }
+  }
+
+  function mute(){
+    audio.paused ? audio.play() : audio.pause();
   }
 
   function keyPresses() {
