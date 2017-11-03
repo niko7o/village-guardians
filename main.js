@@ -1,15 +1,12 @@
 // Object initiation
-player1 = new Player(350, 300);
-player2 = new Player(300, 300);
-monster = new Monster();
-village1 = new Village(2000);
-wall = new Wall();
-var isPaused = false;
+var newGame = new Game();
+
+setInterval(newGame.update(), 1000 / 60);
+
 // Multikeys
 keys = [];
 
 window.onload = function() {
-  // audio
   var audio = new Audio('./audio/8bitrs.mp3');
   audio.play();
 
@@ -17,13 +14,9 @@ window.onload = function() {
   var players = 1;
   var villagesCompleted = 1;
 
-  // Canvas init
-  var canvas = document.getElementById('game');
-  ctx = canvas.getContext('2d');
-
   // Player quantity
   if($('.player2').click(function(){
-    players = 2
+    players = 2;
   }));
 
   // Functions to execute once
@@ -31,63 +24,10 @@ window.onload = function() {
   createMonsterArmy(4);
   createWalls();
 
-  // Game loop
-  var myGame = setInterval(update, 1000 / 60);
-
   function preload() {
     player1.preload();
     player2.preload();
     player2.img.src = './sprites/down-3.png';
-  }
-
-  function update() {
-    // Clear board
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Sidebar info
-    $('#player1score').html(player1.score);
-    $('#player2score').html(player2.score);
-    $('#villagehealth').html(village1.health);
-
-    // Draw players
-    if(players == 2){
-      player1.draw();
-      player2.draw();
-    } else {
-      player1.draw();
-    }
-
-    // Draw monsters
-    moveMonsterArmy();
-    drawMonsterArmy();
-
-    // Draw walls
-    drawWalls();
-
-    // Village
-    village1.loseHealth();
-
-    // Village 2
-    if(village1.health > 0 && monster.army.length == 0){
-      isPaused = true;
-      villagesCompleted++;
-      $('canvas').css('background-image','url('+'./images/village2.png');
-
-      village2 = new Village();
-
-    }
-
-    // Detect keypresses
-    keyPresses();
-
-    // Game over
-    if(village1.health == 0){
-      clearInterval(myGame);
-      $('canvas').css('filter',"blur(4px) grayscale(1)");
-      $('canvas').css('transform','scale(1.03)');
-      $('#gameover').css('display','block');
-      $('#gameover img').css('display','block');
-    }
   }
 
   function createWalls() {

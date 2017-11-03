@@ -14,4 +14,4 @@ Village.prototype.loseHealth = function(){
 
 Village.prototype.change = function(){
 
-}
+};
