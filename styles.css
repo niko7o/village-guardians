@@ -1,4 +1,4 @@
-body { overflow: hidden; }
+body { margin: 0; overflow: hidden; }
 
 #start {
   display: block;
@@ -10,30 +10,46 @@ body { overflow: hidden; }
 }
 
 #gameStarted {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
+  display: none;
+  width: 640px;
+  height: 570px;
 }
 
 canvas {
   display: none;
   width: 640px;
   height: 480px;
-  background-image: url('./images/village1.png');
+  background-image: url('./images/village2.png');
   z-index: 2;
   order: 1;
+  transition: 0.25s filter linear;
 }
 
 #sidebar {
   display: none;
-  width: 200px;
-  height: 480px;
+  width: 640px;
+  height: 90px;
   background-color: #e0e0e0;
   order: 2;
   border: 1px solid #c8c8c8;
   box-sizing: border-box;
+}
+
+#gameover {
+  display: none;
+}
+
+#gameover img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  width: 233px;
+  height: 175px;
+  display: none;
+  z-index: 2;
 }
 
 .shadow {
@@ -60,8 +76,8 @@ canvas {
 .logo {
   width: 330px;
   display: block;
-  padding-top: 100px;
-  margin: 0 auto 20px;
+  padding-top: 80px;
+  margin: 0 auto 50px;
 }
 
 .player1 {
@@ -71,4 +87,34 @@ canvas {
 
 .btn:hover {
   cursor: pointer;
+}
+
+.bounce {
+ animation: bounce 2s infinite;
+ -webkit-animation: bounce 2s infinite;
+ -moz-animation: bounce 2s infinite;
+ -o-animation: bounce 2s infinite;
+}
+
+@-webkit-keyframes bounce {
+ 0%, 20%, 50%, 80%, 100% {-webkit-transform: translateY(0);}
+ 40% {-webkit-transform: translateY(-15px);}
+ 60% {-webkit-transform: translateY(-7px);}
+}
+
+@-moz-keyframes bounce {
+ 0%, 20%, 50%, 80%, 100% {-moz-transform: translateY(0);}
+ 40% {-moz-transform: translateY(-15px);}
+ 60% {-moz-transform: translateY(-7px);}
+}
+
+@-o-keyframes bounce {
+ 0%, 20%, 50%, 80%, 100% {-o-transform: translateY(0);}
+ 40% {-o-transform: translateY(-15px);}
+ 60% {-o-transform: translateY(-7px);}
+}
+@keyframes bounce {
+ 0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+ 40% {transform: translateY(-15px);}
+ 60% {transform: translateY(-7px);}
 }

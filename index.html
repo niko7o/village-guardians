@@ -19,20 +19,24 @@
 
   <body>
     <div id="start" class="center">
-      <img class="logo" src="./images/logo.png" />
+      <img class="logo bounce" src="./images/logo.png" />
       <img class="btn player1" src="./images/player1.png" />
-      <img class="btn" src="./images/player2.png" />
+      <img class="btn player2" src="./images/player2.png" />
     </div>
 
-    <div id="gameStarted">
+    <div id="gameStarted" class="center">
       <canvas id="game" width="640" height="480"></canvas>
       <div id="sidebar">
         <span id="player1x"></span><br>
-        <span id="player1y"></span>
+        <span id="player1y"></span><br>
+        <span id="villagehealth"></span>
+      </div>
+      <div id="gameover" class="center">
+        <img src="./images/gameover.png" />
+        <h1 class="center">Replay</h1>
       </div>
     </div>
 
-    <div id="gameover" class="center"></div>
   </body>
 
 </html>

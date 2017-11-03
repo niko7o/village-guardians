@@ -10,15 +10,8 @@ keys = [];
 
 window.onload = function() {
   // Canvas init
-  var canvas = document.getElementById("game");
-  ctx = canvas.getContext("2d");
-
-  // jQuery
-  $('.btn').click(function() {
-    $('#start').css('display', 'none');
-    $('canvas').css('display', 'block');
-    $('#sidebar').css('display', 'block');
-  });
+  var canvas = document.getElementById('game');
+  ctx = canvas.getContext('2d');
 
   // Functions to execute once
   preload();
@@ -37,8 +30,11 @@ window.onload = function() {
   function update() {
     // Clear board
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Sidebar info
     $('#player1x').html('x: ' + Math.round(player1.x));
     $('#player1y').html('y: ' + Math.round(player1.y));
+    $('#villagehealth').html('Village health: ' + village.health);
 
     // Draw players
     player1.draw();
@@ -49,23 +45,21 @@ window.onload = function() {
     drawMonsterArmy();
 
     // Draw walls
-    // drawWalls();
+    drawWalls();
 
     // Village
     village.loseHealth();
 
-    // Game info
-    ctx.fillStyle = "white";
-    ctx.fillText("Village health: " + village.health, 540, 20);
-
-    ctx.fillStyle = "white";
-    ctx.fillText("P1 SCORE: " + player1.score, 10, 20);
-
-    ctx.fillStyle = "white";
-    ctx.fillText("P2 SCORE: " + player2.score, 300, 20);
-
     // Detect keypresses
     keyPresses();
+
+    // Game over
+    if(village.health == 0){
+      clearInterval(myGame);
+      $('canvas').css('filter','blur(4px)');
+      $('#gameover').css('display','block');
+      $('#gameover img').css('display','block');
+    }
   }
 
   function createWalls() {
@@ -117,23 +111,39 @@ window.onload = function() {
 
   function keyPresses() {
     if (keys[37]) {
-      player1.img.src = './sprites/left-0.png';
+      var left = ['./sprites/left-0.png', './sprites/left-1.png', './sprites/left-2.png'];
+      leftAnim = setTimeout(function(){
+        for(var i = 0; i < left.length; i++) player1.img.src = left[i];
+      }, 100);
+      player1.img.src = left[0];
       player1.moveLeft();
       player1.checkMonsterCollision();
     }
     if (keys[38]) {
-      player1.img.src = './sprites/up-0.png';
+      var up = ['./sprites/up-0.png', './sprites/up-1.png', './sprites/up-2.png'];
+      upAnim = setTimeout(function(){
+        for(var i = 0; i < up.length; i++) player1.img.src = up[i];
+      }, 100);
+      player1.img.src = up[0];
       player1.moveUp();
       player1.checkMonsterCollision();
     }
 
     if (keys[39]) {
-      player1.img.src = './sprites/right-0.png';
+      var right = ['./sprites/right-0.png', './sprites/right-1.png', './sprites/right-2.png'];
+      rightAnim = setTimeout(function(){
+        for(var i = 0; i < right.length; i++) player1.img.src = right[i];
+      }, 100);
+      player1.img.src = right[0];
       player1.moveRight();
       player1.checkMonsterCollision();
     }
     if (keys[40]) {
-      player1.img.src = './sprites/down-1.png';
+      var down = ['./sprites/down-1.png', './sprites/down-2.png'];
+      downAnim = setTimeout(function(){
+        for(var i = 0; i < down.length; i++) player1.img.src = down[i];
+      }, 100);
+      player1.img.src = down[0];
       player1.moveDown();
       player1.checkMonsterCollision();
     }
@@ -167,12 +177,32 @@ window.onload = function() {
     if (keys[80]) clearInterval(myGame);
   }
 
-  document.body.addEventListener("keydown", function(e) {
+  document.body.addEventListener('keydown', function(e) {
     keys[e.keyCode] = true;
   });
 
-  document.body.addEventListener("keyup", function(e) {
+  document.body.addEventListener('keyup', function(e) {
     keys[e.keyCode] = false;
+  });
+
+  // jQuery
+  $('.btn').click(function() {
+    $('#start').css('display', 'none');
+    $('canvas').css('display', 'block');
+    $('#gameStarted').css('display', 'block');
+    $('#sidebar').css('display', 'block');
+  });
+
+  $('.player1').hover(function() {
+    $('.player1').attr('src','./images/player1hover.png');
+  }, function() {
+    $('.player1').attr('src','./images/player1.png');
+  });
+
+  $('.player2').hover(function() {
+    $('.player2').attr('src','./images/player2hover.png');
+  }, function() {
+    $('.player2').attr('src','./images/player2.png');
   });
 
 };

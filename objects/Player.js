@@ -105,7 +105,6 @@ Player.prototype.checkWallCollision = function() {
       this.x + this.width > wall.array[i].x && // right
       this.y < wall.array[i].y + wall.array[i].height && // top
       this.height + this.y > wall.array[i].y) { // bottom
-      console.log('Wall crash @ ' + this.direction);
       return true;
     }
   }
@@ -116,12 +115,6 @@ Player.prototype.checkBoundaries = function() {
   if (this.x + this.width >= 640) this.x = 640 - this.width;
   if (this.y <= 0) this.y = 0;
   if (this.y + this.height >= 480) this.y = 480 - this.height;
-};
-
-Player.prototype.checkAttackHit = function() {
-  if (this.checkMonsterCollision()) {
-    alert('hit');
-  }
 };
 
 Player.prototype.moveLeft = function() {
