@@ -29,8 +29,6 @@ Player.prototype.preload = function() {
 };
 
 Player.prototype.draw = function() {
-  var canvas = document.getElementById('game');
-  var ctx = canvas.getContext('2d');
   ctx.drawImage(this.img, this.x, this.y);
 };
 

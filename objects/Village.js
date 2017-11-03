@@ -11,7 +11,3 @@ Village.prototype.loseHealth = function(){
       this.health = 0;
     }
 };
-
-Village.prototype.change = function(){
-
-};
