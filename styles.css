@@ -1,4 +1,9 @@
-body { margin: 0; overflow: hidden; }
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family:monospace;
+  font-size: 14px;
+}
 
 #start {
   display: block;
@@ -13,13 +18,14 @@ body { margin: 0; overflow: hidden; }
   display: none;
   width: 640px;
   height: 570px;
+  overflow: hidden;
 }
 
 canvas {
   display: none;
   width: 640px;
   height: 480px;
-  background-image: url('./images/village2.png');
+  background-image: url('./images/village1.png');
   z-index: 2;
   order: 1;
   transition: 0.25s filter linear;
@@ -29,10 +35,37 @@ canvas {
   display: none;
   width: 640px;
   height: 90px;
-  background-color: #e0e0e0;
+  background-image: url('./images/sidebar.png');
   order: 2;
-  border: 1px solid #c8c8c8;
   box-sizing: border-box;
+  position: relative;
+}
+
+#sidebar span {
+  position: absolute;
+  color: white;
+  top: 50px;
+}
+
+#player1score {
+  left: 50px;
+}
+
+#player2score {
+  left: 200px;
+}
+
+#villagehealth {
+  left: 345px;
+}
+
+.audioactive, .audiooff {
+  position: absolute;
+  right: 20px;
+}
+
+.audioactive, .audiooff:hover {
+  cursor: pointer;
 }
 
 #gameover {

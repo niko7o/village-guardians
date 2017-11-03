@@ -10,8 +10,14 @@ keys = [];
 
 window.onload = function() {
   // Canvas init
+  var players = 1;
   var canvas = document.getElementById('game');
   ctx = canvas.getContext('2d');
+
+  // Player quantity
+  if($('.player2').click(function(){
+    players = 2
+  }));
 
   // Functions to execute once
   preload();
@@ -32,13 +38,17 @@ window.onload = function() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Sidebar info
-    $('#player1x').html('x: ' + Math.round(player1.x));
-    $('#player1y').html('y: ' + Math.round(player1.y));
-    $('#villagehealth').html('Village health: ' + village.health);
+    $('#player1score').html(player1.score);
+    $('#player2score').html(player2.score);
+    $('#villagehealth').html(village.health);
 
     // Draw players
-    player1.draw();
-    player2.draw();
+    if(players == 2){
+      player1.draw();
+      player2.draw();
+    } else {
+      player1.draw();
+    }
 
     // Draw monsters
     moveMonsterArmy();
@@ -49,6 +59,9 @@ window.onload = function() {
 
     // Village
     village.loseHealth();
+    if(village.health > 0 && monster.army.length == 0){
+      alert('congrats!')
+    }
 
     // Detect keypresses
     keyPresses();
@@ -56,7 +69,8 @@ window.onload = function() {
     // Game over
     if(village.health == 0){
       clearInterval(myGame);
-      $('canvas').css('filter','blur(4px)');
+      $('canvas').css('filter',"blur(4px) grayscale(1)");
+      $('canvas').css('transform','scale(1.03)');
       $('#gameover').css('display','block');
       $('#gameover img').css('display','block');
     }
@@ -151,6 +165,7 @@ window.onload = function() {
       player1.attack();
     }
 
+    if(players == 2){
     if (keys[65]) {
       player2.img.src = './sprites/left-3.png';
       player2.moveLeft();
@@ -174,7 +189,7 @@ window.onload = function() {
     if (keys[69]) { // E
       player2.attack();
     }
-    if (keys[80]) clearInterval(myGame);
+  }
   }
 
   document.body.addEventListener('keydown', function(e) {
