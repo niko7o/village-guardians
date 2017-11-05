@@ -76,6 +76,13 @@ window.onload = function() {
   $('.player2').hover(function() { $('.player2').attr('src','./images/player2hover.png'); }, function() { $('.player2').attr('src','./images/player2.png'); });
   $('.btn').click(function() { $('#start').css('display', 'none'); $('#instructions').css('display', 'block'); });
 
+  // Animated clouds
+  window.setInterval(function() {
+    $('body').animate({
+      'background-position': '-=1px'
+    }, 1, 'linear');
+  }, 1000/60);
+
   // Play button
   $('.gotit').click(function() {
     $('#instructions').css('display', 'none');
