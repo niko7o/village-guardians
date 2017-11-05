@@ -84,6 +84,9 @@ window.onload = function() {
   });
 
   function update() {
+    // Clouds
+    clouds();
+
     // Highscore load
     highscore.get();
 
@@ -148,6 +151,12 @@ window.onload = function() {
   /*
   UTILITY FUNCTIONS
   */
+
+  function clouds() {
+    var pixel = 0;
+    pixel-= 1;
+    $('body').css('background-position-x', pixel);
+  }
 
   function preload() {
     player1.preload();
