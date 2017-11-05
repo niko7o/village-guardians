@@ -56,25 +56,27 @@ window.onload = function() {
   var gameState = 1;
   var isPaused = false;
   var winner = '';
+  var images = [];
+  var loadcount = 0;
+  var loadtotal = 0;
+  var preloaded = false;
 
   // Player Quantity Checker
   if($('.player2').click(function(){ players = 2; }));
 
   // Functions to execute once
+  images = loadImages(sprites);
   preload();
   createMonsterArmy(randomBetween(1,3));
   createWalls();
 
-  // jQuery
+  // jQuery Event Handlers
   $('.audio').click(function() { mute(); });
   $('.player1').hover(function() { $('.player1').attr('src','./images/player1hover.png'); }, function() { $('.player1').attr('src','./images/player1.png'); });
   $('.player2').hover(function() { $('.player2').attr('src','./images/player2hover.png'); }, function() { $('.player2').attr('src','./images/player2.png'); });
-  $('.btn').click(function() {
-    $('#start').css('display', 'none');
-    $('#instructions').css('display', 'block');
-  });
+  $('.btn').click(function() { $('#start').css('display', 'none'); $('#instructions').css('display', 'block'); });
 
-  // Game start
+  // Play button
   $('.gotit').click(function() {
     $('#instructions').css('display', 'none');
     $('canvas').css('display', 'block');
@@ -84,11 +86,6 @@ window.onload = function() {
   });
 
   function update() {
-    // Clouds
-    clouds();
-
-    // Highscore load
-    highscore.get();
 
     // Clear board
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -128,12 +125,12 @@ window.onload = function() {
     if(village.health == 0){
       clearInterval(myGame);
       gameState = 0;
+      highscore.set();
       bg_music.pause();
       $('canvas').css('filter',"blur(4px) grayscale(1)");
       $('canvas').css('transform','scale(1.03)');
       $('#gameover').css('display','block');
       $('#gameover img').css('display','block');
-      highscore.set();
       if(players == 2) {
         if(player1.score > player2.score){
           winner = "Player 1 Wins!";
@@ -148,14 +145,26 @@ window.onload = function() {
     }
   }
 
-  /*
-  UTILITY FUNCTIONS
-  */
+  /*  UTILITY FUNCTIONS  */
 
-  function clouds() {
-    var pixel = 0;
-    pixel-= 1;
-    $('body').css('background-position-x', pixel);
+  function loadImages(imagefiles) {
+      loadcount = 0;
+      loadtotal = imagefiles.length;
+      preloaded = false;
+
+      var loadedimages = [];
+      for (var i = 0; i < imagefiles.length; i++) {
+          var image = new Image();
+          image.onload = function () {
+              loadcount++;
+              if (loadcount == loadtotal) {
+                  preloaded = true;
+              }
+          };
+          image.src = imagefiles[i];
+          loadedimages[i] = image;
+      }
+      return loadedimages;
   }
 
   function preload() {
