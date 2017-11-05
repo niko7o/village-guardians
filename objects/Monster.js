@@ -31,6 +31,8 @@ Monster.prototype.create = function() {
 
 Monster.prototype.die = function(id) {
   this.army.splice(id, 1);
+  var die = new Audio('./audio/die.mp3');
+  die.play();
 };
 
 Monster.prototype.move = function() {

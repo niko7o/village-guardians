@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="styles.css">
-  <title>Village Guardians 2.0</title>
+  <link href="favicon.ico" rel="icon" type="image/x-icon" />
+  <title>Village Guardians</title>
   <!-- jQuery -->
   <script src="jquery-3.2.1.min.js"></script>
   <!-- Objects -->
@@ -13,6 +14,7 @@
   <script src="objects/Monster.js"></script>
   <script src="objects/Village.js"></script>
   <script src="objects/Wall.js"></script>
+  <script src="objects/Highscore.js"></script>
   <!-- Main -->
   <script src="main.js"></script>
 </head>
@@ -22,6 +24,14 @@
       <img class="logo bounce" src="./images/logo.png" />
       <img class="btn player1" src="./images/player1.png" />
       <img class="btn player2" src="./images/player2.png" />
+      <img class="audio" src="./images/audio-active.png" style="right: 318px; bottom: 33px;"/>
+    </div>
+
+    <div id="instructions" class="center">
+      <div class="relative">
+      <img src="./images/controls.png" />
+      <button class="gotit">play</button>
+      </div>
     </div>
 
     <div id="gameStarted" class="center">
@@ -30,7 +40,8 @@
         <span id="player1score"></span><br>
         <span id="player2score"></span><br>
         <span id="villagehealth"></span>
-        <img class="audio" onclick="mute()" src="./images/audio-active.png" />
+        <div id="highscore">0</div>
+        <img class="audio" src="./images/audio-active.png" />
       </div>
       <div id="gameover" class="center">
         <img src="./images/gameover.png" />

@@ -4,46 +4,89 @@ player2 = new Player(300, 300);
 monster = new Monster();
 village = new Village(2000);
 wall = new Wall();
-
-// Game loop
-var myGame;
+highscore = new Highscore();
 
 // Multikeys
 keys = [];
 
+// Sprite loader
+var sprites = [
+  './sprites/attack.gif', // [0]
+  './sprites/monster.png', // [1]
+  './sprites/monster2.png', // [2]
+  './sprites/down-1.png', // [3]
+  './sprites/down-2.png', // [4]
+  './sprites/down-3.png', // [5]
+  './sprites/down-4.png', // [6]
+  './sprites/down-5.png', // [7]
+  './sprites/left-0.png', // [8]
+  './sprites/left-1.png', // [9]
+  './sprites/left-2.png', // [10]
+  './sprites/left-3.png', // [11]
+  './sprites/left-4.png', // [12]
+  './sprites/left-5.png', // [13]
+  './sprites/right-0.png', // [14]
+  './sprites/right-1.png', // [15]
+  './sprites/right-2.png', // [16]
+  './sprites/right-3.png', // [17]
+  './sprites/right-4.png', // [18]
+  './sprites/right-5.png', // [19]
+  './sprites/up-0.png', // [20]
+  './sprites/up-1.png', // [21]
+  './sprites/up-2.png', // [22]
+  './sprites/up-3.png', // [23]
+  './sprites/up-4.png', // [24]
+  './sprites/up-5.png', // [25]
+];
+
 window.onload = function() {
-  // Audio
-  var audio = new Audio('./audio/8bitrs.mp3');
-  audio.play();
-
-  // Game variables
-  var players = 1;
-  var villagesCompleted = 1;
-  var winner = '';
-  var isPaused = false;
-  var gameState = 1;
-
   // Canvas
   var canvas = document.getElementById('game');
   ctx = canvas.getContext('2d');
 
+  // Audios
+  var bg_music = new Audio('./audio/titan.mp3');
+  bg_music.play();
+
+  //Highscore
+  $('#highscore').html("HIGHSCORE: " + localStorage.getItem('highscore'));
+
+  // Game variables
+  var players = 1;
+  var gameState = 1;
+  var isPaused = false;
+  var winner = '';
+
   // Player Quantity Checker
-  if($('.player2').click(function(){
-    players = 2;
-  }));
+  if($('.player2').click(function(){ players = 2; }));
 
   // Functions to execute once
   preload();
-  createMonsterArmy(4);
+  createMonsterArmy(randomBetween(1,3));
   createWalls();
 
-  function preload() {
-    player1.preload();
-    player2.preload();
-    player2.img.src = './sprites/down-3.png';
-  }
+  // jQuery
+  $('.audio').click(function() { mute(); });
+  $('.player1').hover(function() { $('.player1').attr('src','./images/player1hover.png'); }, function() { $('.player1').attr('src','./images/player1.png'); });
+  $('.player2').hover(function() { $('.player2').attr('src','./images/player2hover.png'); }, function() { $('.player2').attr('src','./images/player2.png'); });
+  $('.btn').click(function() {
+    $('#start').css('display', 'none');
+    $('#instructions').css('display', 'block');
+  });
+
+  // Game start
+  $('.gotit').click(function() {
+    $('#instructions').css('display', 'none');
+    $('canvas').css('display', 'block');
+    $('#gameStarted').css('display', 'block');
+    $('#sidebar').css('display', 'block');
+    myGame = setInterval(update, 1000/60);
+  });
 
   function update() {
+    // Highscore load
+    highscore.get();
+
     // Clear board
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -66,24 +109,28 @@ window.onload = function() {
 
     // Village
     village.loseHealth();
-
-    // Village 2
     if(village.health > 0 && monster.army.length == 0){
       createMonsterArmy(randomBetween(2, 10));
       village.health += (randomBetween(350, 1000));
+      var change = new Audio('./audio/change.wav');
+      change.play();
     }
 
-    // Detect keypresses
-    if(gameState == 1) keyPresses();
+    // Restrain user from interacting if gameState is 0
+    if(gameState == 1) {
+      keyPresses();
+    }
 
     // Game over
     if(village.health == 0){
-      gameState = 0;
       clearInterval(myGame);
+      gameState = 0;
+      bg_music.pause();
       $('canvas').css('filter',"blur(4px) grayscale(1)");
       $('canvas').css('transform','scale(1.03)');
       $('#gameover').css('display','block');
       $('#gameover img').css('display','block');
+      highscore.set();
       if(players == 2) {
         if(player1.score > player2.score){
           winner = "Player 1 Wins!";
@@ -96,6 +143,17 @@ window.onload = function() {
         $('.winner').html("Your score: " + player1.score);
       }
     }
+  }
+
+  /*
+  UTILITY FUNCTIONS
+  */
+
+  function preload() {
+    player1.preload();
+    player2.preload();
+    player2.img.src = './sprites/down-3.png';
+    highscore.get();
   }
 
   function createWalls() {
@@ -145,12 +203,12 @@ window.onload = function() {
     }
   }
 
-  function mute(){
-    if(audio.paused) {
-      audio.play();
+  function mute() {
+    if(bg_music.paused) {
+      bg_music.play();
       $('.audio').attr('src','./images/audio-active.png');
     } else {
-      audio.pause();
+      bg_music.pause();
       $('.audio').attr('src','./images/audio-off.png');
     }
   }
@@ -198,30 +256,30 @@ window.onload = function() {
     }
 
     if(players == 2){
-    if (keys[65]) {
-      player2.img.src = './sprites/left-3.png';
-      player2.moveLeft();
-      player2.checkMonsterCollision();
+      if (keys[65]) {
+        player2.img.src = './sprites/left-3.png';
+        player2.moveLeft();
+        player2.checkMonsterCollision();
+      }
+      if (keys[87]) {
+        player2.img.src = './sprites/up-3.png';
+        player2.moveUp();
+        player2.checkMonsterCollision();
+      }
+      if (keys[68]) {
+        player2.img.src = './sprites/right-3.png';
+        player2.moveRight();
+        player2.checkMonsterCollision();
+      }
+      if (keys[83]) {
+        player2.img.src = './sprites/down-4.png';
+        player2.moveDown();
+        player2.checkMonsterCollision();
+      }
+      if (keys[69]) { // E
+        player2.attack();
+      }
     }
-    if (keys[87]) {
-      player2.img.src = './sprites/up-3.png';
-      player2.moveUp();
-      player2.checkMonsterCollision();
-    }
-    if (keys[68]) {
-      player2.img.src = './sprites/right-3.png';
-      player2.moveRight();
-      player2.checkMonsterCollision();
-    }
-    if (keys[83]) {
-      player2.img.src = './sprites/down-4.png';
-      player2.moveDown();
-      player2.checkMonsterCollision();
-    }
-    if (keys[69]) { // E
-      player2.attack();
-    }
-  }
   }
 
   document.body.addEventListener('keydown', function(e) {
@@ -232,30 +290,4 @@ window.onload = function() {
     keys[e.keyCode] = false;
   });
 
-  // jQuery
-  $('.btn').click(function() {
-    $('#start').css('display', 'none');
-    $('canvas').css('display', 'block');
-    $('#gameStarted').css('display', 'block');
-    $('#sidebar').css('display', 'block');
-    // Game loop
-    var myGame = setInterval(update, 1000 / 60);
-  });
-
-  $('.audio').click(function() {
-    mute();
-  });
-
-  $('.player1').hover(function() {
-    $('.player1').attr('src','./images/player1hover.png');
-  }, function() {
-    $('.player1').attr('src','./images/player1.png');
-  });
-
-  $('.player2').hover(function() {
-    $('.player2').attr('src','./images/player2hover.png');
-  }, function() {
-    $('.player2').attr('src','./images/player2.png');
-  });
-
-};
+}; // end of window onload

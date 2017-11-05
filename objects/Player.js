@@ -5,11 +5,12 @@ function Player(x, y) {
   this.height = 32;
   this.img = new Image();
   this.attackAnimation = new Image();
-  this.xVel = 1.8;
-  this.yVel = 1.8;
+  this.xVel = 2;
+  this.yVel = 2;
   this.direction = 'S';
   this.collide = false;
   this.score = 0;
+  this.sprites = [];
 }
 
 Player.prototype.preload = function() {
@@ -47,7 +48,7 @@ Player.prototype.attack = function() {
       }
       break;
 
-    case 'W': // Works well
+    case 'W':
       ctx.drawImage(this.attackAnimation, this.x - 32, this.y);
       for (var i = 0; i < monster.army.length; i++) {
         if (this.x - 32 <= monster.army[i].x + monster.army[i].width + 5 &&

@@ -7,22 +7,6 @@ body {
   background-size: cover;
 }
 
-#start {
-  display: block;
-  width: 640px;
-  height: 480px;
-  background-image: url('images/background.png');
-  background-size: cover;
-  z-index: 3;
-}
-
-#gameStarted {
-  display: none;
-  width: 640px;
-  height: 570px;
-  overflow: hidden;
-}
-
 canvas {
   display: none;
   width: 640px;
@@ -33,42 +17,29 @@ canvas {
   transition: 0.25s filter linear;
 }
 
-#sidebar {
+#start {
+  display: block;
+  width: 640px;
+  height: 480px;
+  background-image: url('images/background.png');
+  background-size: cover;
+  z-index: 3;
+}
+
+#instructions {
   display: none;
   width: 640px;
-  height: 90px;
-  background-image: url('./images/sidebar.png');
-  order: 2;
-  box-sizing: border-box;
-  position: relative;
+  height: 480px;
+  background-image: url('images/controls.png');
+  background-size: cover;
+  z-index: 3;
 }
 
-#sidebar span {
-  position: absolute;
-  color: white;
-  top: 50px;
-}
-
-#player1score {
-  left: 50px;
-}
-
-#player2score {
-  left: 200px;
-}
-
-#villagehealth {
-  left: 345px;
-}
-
-.audio {
-  position: absolute;
-  right: 20px;
-  z-index:4;
-}
-
-.audio:hover {
-  cursor: pointer;
+#gameStarted {
+  display: none;
+  width: 640px;
+  height: 570px;
+  overflow: hidden;
 }
 
 #gameover {
@@ -87,6 +58,76 @@ canvas {
   height: 175px;
   display: none;
   z-index: 2;
+}
+
+#sidebar {
+  display: none;
+  width: 640px;
+  height: 90px;
+  background-image: url('./images/sidebar.png');
+  order: 2;
+  box-sizing: border-box;
+  position: relative;
+}
+
+#sidebar span {
+  position: absolute;
+  color: white;
+  top: 50px;
+}
+
+#player1score { left: 50px; }
+
+#player2score { left: 200px; }
+
+#villagehealth {  left: 345px; }
+
+#highscore {
+  font-size: 11px;
+  right: 1em;
+  position: absolute;
+  color: white;
+  bottom: 70px;
+}
+
+.audio {
+  position: absolute;
+  right: 20px;
+  z-index:4;
+}
+
+.audio:hover { cursor: pointer; }
+
+.relative {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.relative button {
+  position: absolute;
+  top: 140px;
+  left: 37px;
+  background-color: #65fb97;
+  border: none;
+  border-radius: 50px;
+  width: 210px;
+  height: 50px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #2e2b29;
+  letter-spacing: 5px;
+  -webkit-transition: background-color .15s ease-in-out, left .2s;
+     -moz-transition: background-color .15s ease-in-out, left .2s;
+       -o-transition: background-color .15s ease-in-out, left .2s;
+          transition: background-color .15s ease-in-out, left .2s;
+}
+
+.relative button:hover {
+  cursor: pointer;
+  background-color: #e1b262;
+  left: 39px;
 }
 
 .shadow {
