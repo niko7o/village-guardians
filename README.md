@@ -12,4 +12,4 @@ Play it here: https://nikotomad.github.io/village-guardians
 
 <img src="https://dzwonsemrish7.cloudfront.net/items/153M2A262e1H340a1R29/Screen%20Shot%202018-04-25%20at%2011.20.25.png">
 
-</`>
+</p>
